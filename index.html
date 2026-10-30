@@ -899,6 +899,11 @@ function acceptOffer(i){
  normalizeRoster(old);normalizeRoster(dest);
  news(`🚨 [오피셜] ${p.name}, ${dest.name} 이적!`);save();render();
 }
+function closeOverlay(){
+ const ov=document.getElementById('overlay');
+ if(ov)ov.classList.add('hide');
+ render();
+}
 function nextMonth(){
  if(s.contractPending||s.offers?.length){alert('먼저 이적 제안을 선택하거나 재계약 협상을 완료하세요.');tab='transfer';render();return}
  if(s.retired){alert('선수 커리어가 종료되었습니다.');return}
