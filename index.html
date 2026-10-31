@@ -63,7 +63,7 @@ const r=(a,b)=>a+Math.random()*(b-a),pick=a=>a[Math.floor(Math.random()*a.length
 function id(){return 'p'+Math.random().toString(36).slice(2,10)}
 function genName(){return pick(FIRST)+pick(['','X','7','Q','_','9','Prime','Z'])+Math.floor(r(1,99))}
 const BIRTH_YEARS={"Faker":1996,"Doran":2000,"Oner":2002,"Peyz":2005,"Keria":2002,"Kiin":1999,"Canyon":2001,"Chovy":2001,"Ruler":1998,"Duro":2002,"Zeus":2004,"Kanavi":2001,"Zeka":2002,"Gumayusi":2002,"Delight":2002,"Siwoo":2007,"Lucid":2005,"ShowMaker":2000,"Smash":2006,"Career":2004,"PerfecT":2004,"Cuzz":1999,"Bdd":1999,"Aiming":2000,"Ghost":1999,"Clear":2002,"Raptor":2004,"VicLa":2003,"Diable":2007,"Kellin":2001,"Kingen":2000,"Sponge":2004,"Scout":1998,"Lehends":1998,"Rich":1998,"Vincenzo":2004,"ucal":2001,"Jiwoo":2004,"Andil":2002,"DuDu":2001,"Pyosik":2000,"Clozer":2003,"deokdam":2000,"Peter":2003,"Casting":2003,"GIDEON":2003,"Teddy":1998,"Namgung":2003,"Bin":2003,"knight":2000,"Viper":2000,"Caps":1999,"Blaber":2000,"CoreJJ":1994,"BrokenBlade":2000,"Inspired":2002,"Jojopyun":2004,"Soboro":2004,"Hans Sama":1999,"Mikyx":1998,"Xiaohu":1998,"Tarzan":1999,"Razork":2000,"Yeon":2002,"Vulcan":1999,"Upset":1999,"Xiaohao":2002};
-function correctRealAges(world,year){for(const p of Object.values(world.players)){if(!p.real||p.player)continue;let by=BIRTH_YEARS[p.name];if(by){p.birthYear=by;p.age=year-by;p.ageVerified=true}else{p.ageVerified=false;if(!Number.isFinite(p.age))p.age=22}}}
+function correctRealAges(world,year){for(const p of Object.values(world.players)){if(!p.real||p.player)continue;let by=BIRTH_YEARS[p.name];if(by){p.birthYear=by;p.age=year-by;p.ageVerified=true;p.ageEstimated=false}else{p.ageVerified=false;p.ageEstimated=true;if(!Number.isFinite(p.age))p.age=(p.league==='LCK CL'?18:p.league==='ACADEMY'?17:22)}}}
 function shownAge(p){return p.real&&!p.ageVerified?'미확인 (게임 내부 추정)':p.age+'세'}
 // 2026년 게임 시작 시점의 인지도·커리어를 바탕으로 한 제작자 평가(공식 지표가 아님).
 // 닉네임은 대소문자를 정규화하고, 실제 선수만 명시적 평가를 부여한다.
@@ -96,7 +96,7 @@ function fixFameOnLoad(world){
     p.famePatch2026=true;
   }
 }
-function makePlayer(name,pos,league,team,real=false,forceAge){let famous=['Faker','Chovy','Ruler','Canyon','Keria','Zeus','Caps','ShowMaker','Gumayusi','Oner','Kanavi','Kiin','Bdd','Knight','Bin','JackeyLove','Viper','Elk'];let strong=famous.includes(name)?r(86,94):real?r(73,88):r(48,65);let a=ATTR.map(()=>rnd(clamp(strong+r(-7,7),30,96)));let yearBorn=BIRTH_YEARS[name];let age=forceAge??(real&&yearBorn?2026-yearBorn:real?(league==='LCK CL'?18:22):Math.floor(r(16,20)));let peakStart=Math.floor(r(19,28)),peakEnd=peakStart+Math.floor(r(2,9));return {id:id(),name,pos,league,team,real,age,birthYear:real?yearBorn||null:null,ageVerified:!!(real&&yearBorn),stats:a,peakStart,peakEnd,curve:r(.65,1.35),potential:r(76,99),fame:real?initialFame({name,league,real:true}):Math.round(r(2,16)),famePatch2026:!!real,condition:Math.round(r(70,96)),champ:Object.fromEntries(CHAMPS[pos].map(c=>[c,Math.round(r(35,82))])),games:0,wins:0,kda:0,rating:0,trust:65,history:[],retired:false,role:'선수',bestOverall:avg(a)} }
+function makePlayer(name,pos,league,team,real=false,forceAge){let famous=['Faker','Chovy','Ruler','Canyon','Keria','Zeus','Caps','ShowMaker','Gumayusi','Oner','Kanavi','Kiin','Bdd','Knight','Bin','JackeyLove','Viper','Elk'];let strong=famous.includes(name)?r(86,94):real?r(73,88):r(48,65);let a=ATTR.map(()=>rnd(clamp(strong+r(-7,7),30,96)));let yearBorn=BIRTH_YEARS[name];let age=forceAge??(real&&yearBorn?2026-yearBorn:real?(league==='LCK CL'?18:22):Math.floor(r(16,20)));let peakStart=Math.floor(r(19,28)),peakEnd=peakStart+Math.floor(r(2,9));return {id:id(),name,pos,league,team,real,age,birthYear:real?yearBorn||null:null,ageVerified:!!(real&&yearBorn),ageEstimated:!!(real&&!yearBorn),stats:a,peakStart,peakEnd,curve:r(.65,1.35),potential:r(76,99),fame:real?initialFame({name,league,real:true}):Math.round(r(2,16)),famePatch2026:!!real,condition:Math.round(r(70,96)),champ:Object.fromEntries(CHAMPS[pos].map(c=>[c,Math.round(r(35,82))])),games:0,wins:0,kda:0,rating:0,trust:65,history:[],retired:false,role:'선수',bestOverall:avg(a)} }
 
 // 2026 LCK CL starting five (real player nicknames; roster snapshots may change).
 Object.assign(REAL,{"BNK FEARX Youth": ["Kangin", "Zephyr", "FIESTA", "Slayer", "Luon"], "DN SOOPers Challengers": ["Lancer", "DDoiV", "Flip", "Enosh", "Quantum"], "Dplus KIA Challengers": ["Jaehyuk", "Sharvel", "Garden", "Wayne", "Loopy"], "Gen.G Global Academy": ["Ripple", "Courage", "Kemish", "MUDAI", "SIRIUSS"], "BRION Challengers": ["DDahyuk", "Dinai", "Tempester", "OddEye", "PlanB"], "Hanwha Life Esports Challengers": ["Panther", "Jackal", "Cracker", "Pyeonsik", "Bluffing"], "KT Rolster Challengers": ["Sero", "Sylvie", "HwiChan", "FenRir", "Pollu"], "DRX Challengers": ["Frog", "Winner", "AKaJe", "Jiwoo", "Minous"], "Nongshim Esports Academy": ["Janus", "Mihawk", "SeTab", "Lucy", "Pleata"], "T1 Esports Academy": ["Haetae", "Painter", "Guti", "Cypher", "Cloud"]});
@@ -240,7 +240,7 @@ function monthArmyPrompt(){
 function newGame(){let name=document.getElementById('nick').value.trim()||'ROOKIE',team=document.getElementById('startTeam')?.value,pos=document.getElementById('pos').value,type=document.getElementById('startType')?.value,league='ACADEMY';if(!team||!LEAGUES.ACADEMY.includes(team))return;if(!window.startTypeChoices||!window.startTypeChoices.includes(type)){alert('제시된 선수 유형 중 하나를 선택해 주세요.');return;}let w=makeWorld();calibratePreseason(w);for(const ai of Object.values(w.players))ai.bestOverall=avg(ai.stats);let p=makePlayer(name,pos,league,team,false,16);p.player=true;p.placeholder=false;p.rookie=true;p.stats=ATTR.map((_,i)=>rnd(51+r(0,11)));let boosts={'라인전 괴물':1,'한타 지배자':2,'운영의 마술사':3,'챔피언 장인':4,'강철 멘탈':5,'팀플레이 메이커':6,'피지컬 천재':0,'육각형 유망주':-1,'후반 캐리형':2,'공격적인 플레이메이커':0,'안정적인 수비형':5,'전략적 리더':3};let ix=boosts[type];if(ix===-1)p.stats=p.stats.map(x=>rnd(x+2));else p.stats[ix]+=7;p.type=type;w.players[p.id]=p;{let t=w.teams[team],old=t.players.find(pid=>w.players[pid]?.pos===pos);if(old){t.players=t.players.filter(pid=>pid!==old);w.players[old].team='FA';w.players[old].freeAgent=true}t.players.push(p.id)}s={v:5,year:2026,month:1,player:p.id,world:w,transferLog:[],transferSequence:0,cash:40,salary:120,contract:1,contractPending:false,focus:[0,1,2],inventory:[],equipped:{},history:[],tournaments:[],news:[],monthly:null,retired:false,coachCareer:false,military:0,exempt:false,militaryStatus:"미필",asianSelections:{},asianResults:{},asianGoldMedalists:[],champions:[],rivals:{},sponsors:[],currentEvents:[],seasonStats:{games:0,wins:0,rating:0},meta:pick(['한타','라인전','운영']),monthEvents:[],lastStandings:{},brackets:[],yearAwards:[],careerScore:0};tab='home';normalizeAllRosters();save();render()}
 function me(){return s.world.players[s.player]}function teamOf(p){return s.world.teams[p.team]}function effective(p){let a=[...p.stats];if(p.player)for(let item of s.inventory)if(s.equipped[item[0]]===item[1]&&item[3]<7)a[item[3]]+=item[4];return a.map(x=>clamp(x,0,105))}
 function power(t){return t?lineupPower(t):40}
-function agePlayer(p){if(p.player){let row=RATES.find(x=>p.age<=x[0]);p.stats=p.stats.map((v,i)=>{let focused=s.focus.includes(i),lo=row[focused?3:1],hi=row[focused?4:2],d=r(lo,hi)*1.3;let limit=v>88?.22:v>78?.5:1;return rnd(clamp(v+d*(d>0?2*limit:1),20,99))})}else{let phase=p.age<p.peakStart?1:p.age<=p.peakEnd?.4:-1;let dir=[1.15,.9,.9,.5,.7,.25,.25];p.stats=p.stats.map((v,i)=>{let factor=dir[i],base=phase===1?r(.05,.22):phase===.4?r(-.05,.07):r(-.21,-.04);if(i>=3&&phase===-1)base+=r(.01,.12);let d=base*p.curve*factor*(v>88&&base>0?.25:1)*(v>78&&base>0?.6:1);return rnd(clamp(v+(d>0?2*d:d),30,99))})}p.condition=clamp(p.condition+r(-8,9),42,100);for(let c of Object.keys(p.champ))p.champ[c]=clamp(p.champ[c]+r(-.15,.45),20,99);if(!p.player)checkAIRetirement(p)}
+function agePlayer(p){if(p.player){let row=RATES.find(x=>p.age<=x[0]);p.stats=p.stats.map((v,i)=>{let focused=s.focus.includes(i),lo=row[focused?3:1],hi=row[focused?4:2],d=r(lo,hi)*1.3;let limit=v>88?.22:v>78?.5:1;return rnd(clamp(v+d*(d>0?2*limit:1),20,99))})}else{let phase=p.age<p.peakStart?1:p.age<=p.peakEnd?.4:-1;let dir=[1.15,.9,.9,.5,.7,.25,.25];p.stats=p.stats.map((v,i)=>{let factor=dir[i],base=phase===1?r(.05,.22):phase===.4?r(-.05,.07):r(-.21,-.04);if(i>=3&&phase===-1)base+=r(.01,.12);let d=base*p.curve*factor*(v>88&&base>0?.25:1)*(v>78&&base>0?.6:1);if(d>0)d*=1.3/1.1;return rnd(clamp(v+(d>0?2*d:d),30,99))})}p.condition=clamp(p.condition+r(-8,9),42,100);for(let c of Object.keys(p.champ))p.champ[c]=clamp(p.champ[c]+r(-.15,.45),20,99);if(!p.player)checkAIRetirement(p)}
 function checkAIRetirement(p){
  if(!p||p.player||p.retired)return;
  let now=avg(p.stats);
@@ -284,17 +284,54 @@ function recruitFit(t,p){
  let tierFit=Math.exp(-Math.pow((skill-tier)/27,2));
  return Math.max(0,skillFit*fameFit*tierFit);
 }
-function rookieFor(t,pos,reason){
- let minimum=rosterMinAge(t);
- let age=Math.floor(r(minimum,Math.max(minimum+1,minimum===19?23:20)));
- let p=makePlayer(genName(),pos,t.league,t.id,false,age);
- p.placeholder=true;p.rookie=true;
- let target=clamp((LEAGUE_STRENGTH[t.league]||55)-r(2,9),t.league==='ACADEMY'?40:49,t.league==='LCK'?85:t.league==='LPL'?84:t.league==='LEC'?79:76);
- let diff=target-avg(p.stats);
+// All newly generated players originate in an academy roster, never directly in CL/first tier.
+function academyRookie(t,pos,reason){
+ if(!t||t.league!=='ACADEMY')return null;
+ let age=Math.floor(r(16,19));
+ let p=makePlayer(genName(),pos,'ACADEMY',t.id,false,age);
+ p.placeholder=true;p.rookie=true;p.generated=true;p.academyOrigin=true;p.academyDebutYear=s.year;
+ let target=clamp(49+r(-7,7),40,59),diff=target-avg(p.stats);
  p.stats=p.stats.map(v=>rnd(clamp(v+diff,30,96)));
- p.fame=Math.round(clamp(rosterPrestige(t)-r(6,18),3,85));
- s.world.players[p.id]=p;t.players.push(p.id);
- logMove('신인 영입',p,'FA',t.name,reason||'전력 보강');return p;
+ p.fame=Math.round(r(2,13));s.world.players[p.id]=p;t.players.push(p.id);
+ logMove('루키 생성',p,'신인 풀',t.name,reason||'아카데미 신인 합류');return p;
+}
+function rookieFor(t,pos,reason){
+ // Retain the old function name for callers, but never generate above the academy level.
+ if(t?.league==='ACADEMY')return academyRookie(t,pos,reason);
+ return fillVacancy(t,pos,reason);
+}
+let fillingVacancies=new Set();
+function fillVacancy(t,pos,reason){
+ if(!t||activePlayers(t).some(p=>p.pos===pos&&eligibleForTeam(p,t)))return null;
+ let key=t.id+'|'+pos;if(fillingVacancies.has(key))return null;
+ fillingVacancies.add(key);
+ try{
+  // Re-sign unattached players before removing an active lower-division player.
+  let pool=Object.values(s.world.players).filter(p=>!p.retired&&!p.player&&p.pos===pos&&p.team==='FA'&&eligibleForTeam(p,t));
+  // Never insert a rookie generated in the current year directly into CL/first tier.
+  pool=pool.filter(p=>!p.generated||p.academyDebutYear<s.year);
+  pool.sort((a,b)=>avg(b.stats)-avg(a.stats));
+  let candidate=pool[0];
+  if(candidate){t.players.push(candidate.id);candidate.team=t.id;candidate.league=t.league;candidate.freeAgent=false;candidate.unattachedYears=0;logMove('FA 영입',candidate,'FA',t.name,reason||'공석 충원');return candidate}
+  // Prefer linked development squads; overseas clubs can recruit from the academy league.
+  let chain=FARM_CLUBS.find(c=>c.includes(t.id));
+  let lowerNames=chain?chain.slice(0,chain.indexOf(t.id)).reverse():[];
+  if(t.league!=='ACADEMY')lowerNames.push(...LEAGUES.ACADEMY.filter(n=>!lowerNames.includes(n)));
+  let candidates=[];
+  for(const [i,name] of lowerNames.entries()){
+   let lower=s.world.teams[name];if(!lower||lower===t)continue;
+   for(const p of activePlayers(lower))if(p.pos===pos&&!p.player&&eligibleForTeam(p,t)&&(!p.generated||p.academyDebutYear<s.year)){
+    candidates.push({p,lower,score:avg(p.stats)+(i===0?5:0)})
+   }
+  }
+  candidates.sort((a,b)=>b.score-a.score);
+  let selected=candidates[0];
+  if(selected){let {p,lower}=selected;lower.players=lower.players.filter(id=>id!==p.id);t.players.push(p.id);p.team=t.id;p.league=t.league;
+   logMove('승격·영입',p,lower.name,t.name,reason||'공석 충원');fillVacancy(lower,pos,'상위 리그 선수 공급');return p}
+  if(t.league==='ACADEMY')return academyRookie(t,pos,reason);
+  // No eligible existing player: leave a vacancy rather than fabricate an instant first-tier rookie.
+  return null;
+ }finally{fillingVacancies.delete(key)}
 }
 function normalizeRoster(t){
  if(!t||!Array.isArray(t.players))return;
@@ -322,12 +359,20 @@ function normalizeRoster(t){
 }
 function normalizeAllRosters(){for(const t of Object.values(s.world.teams))normalizeRoster(t)}
 function canJoinTeam(t,pos){return activePlayers(t).some(p=>p.pos===pos&&!p.player)}
+function sensibleReplacement(p,victim){
+ if(!victim)return true;
+ let gap=avg(p.stats)-avg(victim.stats);
+ if(gap>=0)return true;
+ if(gap<=-8)return false;
+ // Small short-term downgrade is acceptable only for a substantially younger prospect.
+ return p.age+5<=victim.age&&p.age<=25&&gap>=-5;
+}
 function transferPlayer(p,to,why){
  if(!p||p.player||p.retired||!to||p.team===to.id||!eligibleForTeam(p,to))return false;
  let from=s.world.teams[p.team];if(!from||!canJoinTeam(to,p.pos))return false;
  if(recruitFit(to,p)<.055||Math.random()>leagueTransferWeight(to,p))return false;
  let victim=activePlayers(to).find(x=>x.pos===p.pos&&!x.player);
- if(!victim)return false;
+ if(!victim||!sensibleReplacement(p,victim))return false;
  releaseFromTeam(victim,'이적 선수 영입으로 인한 교체');
  from.players=from.players.filter(id=>id!==p.id);
  to.players.push(p.id);p.team=to.id;p.league=to.league;p.freeAgent=false;p.unattachedYears=0;
@@ -358,7 +403,7 @@ function promoteAcademyAI(){
  for(const chain of FARM_CLUBS){for(let k=chain.length-2;k>=0;k--){let lower=s.world.teams[chain[k]],upper=s.world.teams[chain[k+1]];if(!lower||!upper)continue;
   for(const pos of POS){let candidate=activePlayers(lower).find(p=>p.pos===pos&&!p.player&&eligibleForTeam(p,upper));if(!candidate)continue;
    let rival=activePlayers(upper).find(p=>p.pos===pos&&!p.player);if(!rival)continue;
-   let score=promotionScore(candidate,upper);if(score<64||avg(candidate.stats)<avg(rival.stats)-2||Math.random()>.22)continue;
+   let score=promotionScore(candidate,upper);if(score<64||!sensibleReplacement(candidate,rival)||Math.random()>.22)continue;
    lower.players=lower.players.filter(x=>x!==candidate.id);upper.players=upper.players.filter(x=>x!==rival.id);
    lower.players.push(rival.id);upper.players.push(candidate.id);
    let lowName=lower.name,upName=upper.name;
@@ -374,7 +419,7 @@ function offseason(){
  let all=Object.values(s.world.players).filter(p=>!p.player&&!p.retired&&p.team!=='FA').sort(()=>Math.random()-.5);
  for(const p of all){
   if(Math.random()>=.055)continue;
-  let same=Object.values(s.world.teams).filter(t=>t.league===p.league&&t.id!==p.team&&canJoinTeam(t,p.pos)&&eligibleForTeam(p,t)&&recruitFit(t,p)>=.055&&leagueTransferWeight(t,p)>.04);
+  let same=Object.values(s.world.teams).filter(t=>t.league===p.league&&t.id!==p.team&&canJoinTeam(t,p.pos)&&eligibleForTeam(p,t)&&recruitFit(t,p)>=.055&&leagueTransferWeight(t,p)>.04&&sensibleReplacement(p,activePlayers(t).find(x=>x.pos===p.pos&&!x.player)));
   if(!same.length)continue;
   let from=teamOf(p),to=weightedPick(same,t=>recruitFit(t,p));
   if(transferPlayer(p,to,'스토브리그')){moves++;if(moves<18)news(`🔄 ${p.name}: ${from.name} → ${to.name} 이적`)}
