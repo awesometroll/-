@@ -55,7 +55,9 @@ const LEAGUES={"LCK": ["T1", "Gen.G", "Hanwha Life Esports", "Dplus KIA", "KT Ro
 const POS=['TOP','JUG','MID','BOT','SUP'], ATTR=['피지컬','라인전','한타','운영','챔피언 폭','멘탈','팀워크'];
 const CHAMPS={TOP:['제이스','그웬','크산테','레넥톤','럼블','잭스'],JUG:['리 신','바이','신 짜오','니달리','비에고','세주아니'],MID:['아지르','오리아나','사일러스','아칼리','요네','빅토르'],BOT:['이즈리얼','카이사','바루스','징크스','애쉬','제리'],SUP:['라칸','노틸러스','레나타','레오나','룰루','알리스타']};
 const ITEMS=[['PC','보급형 PC',900,2,1],['PC','게이밍 PC',2400,2,2],['PC','고성능 PC',5500,2,3],['PC','하이엔드 PC',13000,2,5],['마우스','일반 게이밍 마우스',50,0,1],['마우스','고급 마우스',175,0,2],['마우스','프로 마우스',450,0,3],['마우스','최상급 마우스',1100,0,4],['키보드','일반 기계식',75,1,1],['키보드','고급 기계식',225,1,2],['키보드','래피드 트리거',600,1,3],['키보드','최상급 키보드',1400,1,4],['모니터','144Hz',175,0,1],['모니터','240Hz',475,0,2],['모니터','360Hz',1150,0,3],['모니터','500Hz',2750,0,4],['헤드셋','일반 헤드셋',60,6,1],['헤드셋','프로 헤드셋',550,6,3],['팔토시','게이밍 팔토시',40,0,1],['팔토시','고급 팔토시',175,0,2],['마우스패드','일반 패드',40,1,1],['마우스패드','프로 패드',275,1,2],['의자','게이밍 의자',425,5,1],['의자','인체공학 의자',1900,5,3],['손목 받침대','손목 받침대',90,7,2],['책상','게이밍 책상',1000,7,3]];
-const RATES=[[18,.10,.24,.18,.36],[22,.08,.153846,.12,.219231],[26,.03,.107692,.05,.153846],[29,0,.08,.02,.13],[33,-.06154,0,-.03846,0],[99,-.25385,-.11538,-.16154,-.05769]]; // 30~33: 일반 -0.16~0, 집중 -0.10~0 / 34+: 일반 -0.66~-0.30, 집중 -0.42~-0.15 (player 1.3x)
+// 월별 능력치 증감 범위: [최대 나이, 일반 최소, 일반 최대, 집중 최소, 집중 최대]
+// 플레이어는 아래 수치를 그대로 사용하고, AI는 양수 증가량에만 1.1배 적용한다.
+const RATES=[[18,.26,.62,.47,.94],[22,.21,.40,.31,.57],[26,.08,.28,.13,.40],[29,0,.21,.05,.34],[33,-.16,0,-.10,0],[99,-.66,-.30,-.42,-.15]];
 const TYPES=['라인전 괴물','한타 지배자','운영의 마술사','챔피언 장인','강철 멘탈','팀플레이 메이커','피지컬 천재','육각형 유망주','후반 캐리형','공격적인 플레이메이커','안정적인 수비형','전략적 리더'];
 const FIRST=['Nova','Rift','Kairo','Astra','Mira','Echo','Vex','Zen','Argo','Lumen','Blaze','Orbit','Aero','Rune','Haze','Cobalt','Nero','Vanta','Pulse','Glint','Kestrel','Frost'];
 const KEY='lol_career_v5_cl_real_rosters_2026';let s=null,tab='home',subLeague='LCK',subTeam='T1',profile=null,archiveIdx=0;
@@ -84,8 +86,9 @@ function genRookieName(){
  }
  return genName();
 }
-const BIRTH_YEARS={"Faker":1996,"Doran":2000,"Oner":2002,"Peyz":2005,"Keria":2002,"Kiin":1999,"Canyon":2001,"Chovy":2001,"Ruler":1998,"Duro":2002,"Zeus":2004,"Kanavi":2001,"Zeka":2002,"Gumayusi":2002,"Delight":2002,"Siwoo":2007,"Lucid":2005,"ShowMaker":2000,"Smash":2006,"Career":2004,"PerfecT":2004,"Cuzz":1999,"Bdd":1999,"Aiming":2000,"Ghost":1999,"Clear":2002,"Raptor":2004,"VicLa":2003,"Diable":2007,"Kellin":2001,"Kingen":2000,"Sponge":2004,"Scout":1998,"Lehends":1998,"Rich":1998,"Vincenzo":2004,"ucal":2001,"Jiwoo":2004,"Andil":2002,"DuDu":2001,"Pyosik":2000,"Clozer":2003,"deokdam":2000,"Peter":2003,"Casting":2003,"GIDEON":2003,"Teddy":1998,"Namgung":2003,"Bin":2003,"knight":2000,"Viper":2000,"Caps":1999,"Blaber":2000,"CoreJJ":1994,"BrokenBlade":2000,"Inspired":2002,"Jojopyun":2004,"Soboro":2004,"Hans Sama":1999,"Mikyx":1998,"Xiaohu":1998,"Tarzan":1999,"Razork":2000,"Yeon":2002,"Vulcan":1999,"Upset":1999,"Xiaohao":2002,"Haetae":2006,"Painter":2007,"Sylvie":2002,"Minous":2004,"LazyFeel":2007,"Winner":2003,"Guti":2004,"Cypher":2006,"Cloud":2007,"Ripple":2006,"Courage":2005,"Kemish":2005,"MUDAI":2005,"SIRIUSS":2006,"Panther":2008,"Jackal":2007,"Cracker":2008,"Pyeonsik":2006,"Bluffing":2008,"Jaehyuk":2007,"Sharvel":2007,"Garden":2007,"Wayne":2003,"Loopy":2004,"Sero":2005,"HwiChan":2006,"FenRir":2006,"Pollu":2006,"Frog":2005,"AKaJe":2008,"Janus":2007,"Mihawk":2009,"SeTab":2004,"Lucy":2006,"Pleata":2003,"DDahyuk":2004,"Dinai":2005,"Tempester":2005,"OddEye":2005,"PlanB":2006,"Kangin":2003,"Zephyr":2007,"FIESTA":2003,"Slayer":2003,"Luon":2003,"Lancer":2004,"DDoiV":2003,"Flip":2008,"Enosh":2004,"Quantum":2004};
-function correctRealAges(world,year){for(const p of Object.values(world.players)){if(!p.real||p.player)continue;let by=BIRTH_YEARS[p.name];if(by){p.birthYear=by;p.age=year-by;p.ageVerified=true;p.ageEstimated=false}else{p.ageVerified=false;p.ageEstimated=true;if(!Number.isFinite(p.age))p.age=(p.league==='LCK CL'?18:p.league==='ACADEMY'?17:22)}}}
+const BIRTH_YEARS={"Labrov":2002,"SkewMond":2004,"TheShy":1999,"JackeyLove":2000,"Impact":1995,"Faker":1996,"Doran":2000,"Oner":2002,"Peyz":2005,"Keria":2002,"Kiin":1999,"Canyon":2001,"Chovy":2001,"Ruler":1998,"Duro":2002,"Zeus":2004,"Kanavi":2001,"Zeka":2002,"Gumayusi":2002,"Delight":2002,"Siwoo":2007,"Lucid":2005,"ShowMaker":2000,"Smash":2006,"Career":2004,"PerfecT":2004,"Cuzz":1999,"Bdd":1999,"Aiming":2000,"Ghost":1999,"Clear":2002,"Raptor":2004,"VicLa":2003,"Diable":2007,"Kellin":2001,"Kingen":2000,"Sponge":2004,"Scout":1998,"Lehends":1998,"Rich":1998,"Vincenzo":2004,"ucal":2001,"Jiwoo":2004,"Andil":2002,"DuDu":2001,"Pyosik":2000,"Clozer":2003,"deokdam":2000,"Peter":2003,"Casting":2003,"GIDEON":2003,"Teddy":1998,"Namgung":2003,"Bin":2003,"knight":2000,"Viper":2000,"Caps":1999,"Blaber":2000,"CoreJJ":1994,"BrokenBlade":2000,"Inspired":2002,"Jojopyun":2004,"Soboro":2004,"Hans Sama":1999,"Mikyx":1998,"Xiaohu":1998,"Tarzan":1999,"Razork":2000,"Yeon":2002,"Vulcan":1999,"Upset":1999,"Xiaohao":2002,"Haetae":2006,"Painter":2007,"Sylvie":2002,"Minous":2004,"LazyFeel":2007,"Winner":2003,"Guti":2004,"Cypher":2006,"Cloud":2007,"Ripple":2006,"Courage":2005,"Kemish":2005,"MUDAI":2005,"SIRIUSS":2006,"Panther":2008,"Jackal":2007,"Cracker":2008,"Pyeonsik":2006,"Bluffing":2008,"Jaehyuk":2007,"Sharvel":2007,"Garden":2007,"Wayne":2003,"Loopy":2004,"Sero":2005,"HwiChan":2006,"FenRir":2006,"Pollu":2006,"Frog":2005,"AKaJe":2008,"Janus":2007,"Mihawk":2009,"SeTab":2004,"Lucy":2006,"Pleata":2003,"DDahyuk":2004,"Dinai":2005,"Tempester":2005,"OddEye":2005,"PlanB":2006,"Kangin":2003,"Zephyr":2007,"FIESTA":2003,"Slayer":2003,"Luon":2003,"Lancer":2004,"DDoiV":2003,"Flip":2008,"Enosh":2004,"Quantum":2004,"Taeyoon":2002,"Fisher":2004,"Empyros":2004,"Vladi":2005,"Lospa":2002,"Rest":1998,"Shad0w":2001,"Pout":2003,"Doggo":2003,"KIno":1998,"Pun":2002,"Hizto":2007,"Bie":1999,"Guigo":2002,"Ayu":2005,"Flandre":1998,"Shanks":2001,"Hope":2000,"Kael":2004,"Xun":2002,"ON":2003,"Thanatos":2004,"APA":2002,"Zven":1997,"Photon":2001,"eXyu":2000,"Palafox":1999,"FBI":1999,"IgNar":1996,"Castle":2002,"KryRa":2002,"Callme":2004,"Sajed":2003,"Lyonz":2001,"Zdz":1999,"Angel":2000,"Leave":2002,"Parukia":2003,"Tatu":2005,"Tutsz":2002,"Jojo":2001,"Gakgos":2002,"Gryffinn":2004,"Quad":2002,"Massu":2004,"Cryogen":2005,"Lot":2003,"ISMA":2001,"Jackies":2004,"Noah":2001,"Jun":2000,"Wei":2002,"Rookie":1997,"Photic":2002,"Meiko":1998,"Xiaoxu":2002,"JunJia":2000,"HongQ":2005,"GALA":2001,"Vampire":2005,"Canna":2000,"Yike":2000,"kyeahoo":2004,"Caliste":2006,"Busio":2003,"sasi":2004,"Heng":2002,"Tangyuan":2003,"Shaoye":2003,"ycx":2004,"sheer":2006,"Croco":2000,"BuLLDoG":2005,"1xn":2003,"Missing":2001,"ZEST":2000,"Curse":2001,"Feisty":2002,"Duduhh":2000,"Ackerman":2001,"Zamudo":2002,"Saint":2001,"Berserker":2003,"Isles":2000,"Kratos":2003,"Gury":2004,"Chika":2002,"Harky":2003,"SiuLoong":2001,"Myrwn":2003,"Elyoya":2000,"Supa":2000,"Alvaro":2003,"Maynter":2004,"Rhilech":2003,"Poby":2006,"Hans_SamD":2001,"Parus":2003,"HOYA":2000,"Guwon":2002,"Care":2003,"Assum":2003,"Zhuo":2001,"Hery":2002,"Juhan":2001,"haichao":2003,"Starry":2004,"Moham":2002,"Wunder":1998,"Skeanz":2000,"LIDER":1999,"Jopa":2004,"HamBak":2003,"DARKWINGS":2004,"Rahel":2004,"huhi":1995,"Rooster":2004,"Boukada":2002,"nuc":2002,"Paduck":2004,"Trymbi":2000,"Fudge":2002,"Contractz":1999,"Zinie":2005,"Bvoy":1998,"Ceos":1998,"Tracyn":2004,"Sheo":2001,"Serin":2002,"Ice":2001,"Stend":2001,"Morgan":2001,"Josedeodo":1999,"Quid":2003,"Dire":2002,"Eddie":2007,"Naak_Nako":2005,"Lyncas":2003,"Humanoid":2000,"Carzzy":2002,"Fleshy":2001,"Cube":2002,"Monki":2004,"Karis":2003,"About":2005,"yaoyao":2003,"Keshi":2003,"Junhao":2005,"Heru":2004,"Ryan3":2005,"Feather":2002,"369":2001,"naiyou":2005,"Creme":2004,"JiaQi":2003,"fengyue":2005,"Liangchen":2004,"Grizzly":2005,"Saber":2003,"Hena":1999,"Xiaoxia":2003,"Zika":2003,"Jiejie":2001,"Elk":2001,"Erha":2003};
+const VERIFIED_BIRTH_DATES={"Hope":"2000-09-29","Kael":"2004-02-11","Xun":"2002-02-05","ON":"2003-05-12","Thanatos":"2004-05-01","APA":"2002-03-10","Zven":"1997-06-24","Photon":"2001-11-29","eXyu":"2000-11-15","Palafox":"1999-11-03","FBI":"1999-09-03","IgNar":"1996-06-19","Castle":"2002-07-19","KryRa":"2002-10-14","Callme":"2004-04-17","Sajed":"2003-11-15","Lyonz":"2001-11-08","Zdz":"1999-12-23","Angel":"2000-09-16","Leave":"2002-10-30","Parukia":"2003-01-13","Tatu":"2005-03-23","Tutsz":"2002-10-25","Jojo":"2001-11-19","Gakgos":"2002-04-12","Gryffinn":"2004-07-25","Quad":"2002-10-24","Massu":"2004-07-13","Cryogen":"2005-08-02","Lot":"2003-05-18","ISMA":"2001-11-12","Jackies":"2004-09-10","Noah":"2001-10-04","Jun":"2000-06-16","Wei":"2002-11-09","Rookie":"1997-03-11","Photic":"2002-02-06","Meiko":"1998-06-06","Xiaoxu":"2002-12-17","JunJia":"2000-06-10","HongQ":"2005-12-24","GALA":"2001-02-14","Vampire":"2005-02-08","Canna":"2000-02-11","Yike":"2000-11-11","kyeahoo":"2004-10-15","Caliste":"2006-08-29","Busio":"2003-07-08","sasi":"2004-10-22","Heng":"2002-06-11","Tangyuan":"2003-10-11","Shaoye":"2003-03-29","ycx":"2004-07-15","sheer":"2006-02-11","Croco":"2000-02-26","BuLLDoG":"2005-02-22","1xn":"2003-12-05","Missing":"2001-05-26","ZEST":"2000-01-17","Curse":"2001-04-25","Feisty":"2002-12-26","Duduhh":"2000-10-22","Ackerman":"2001-05-03","Zamudo":"2002-12-23","Saint":"2001-10-12","Berserker":"2003-05-25","Isles":"2000-10-09","Kratos":"2003-11-04","Gury":"2004-06-18","Chika":"2002-01-12","Harky":"2003-08-22","SiuLoong":"2001-05-15","Myrwn":"2003-06-27","Elyoya":"2000-03-13","Supa":"2000-11-20","Alvaro":"2003-06-13","Maynter":"2004-04-26","Rhilech":"2003-09-05","Poby":"2006-02-07","Hans_SamD":"2001-07-08","Parus":"2003-12-14","HOYA":"2000-08-29","Guwon":"2002-11-20","Care":"2003-05-16","Assum":"2003-12-28","Zhuo":"2001-02-21","Hery":"2002-06-15","Juhan":"2001-06-11","haichao":"2003-08-14","Starry":"2004-08-17","Moham":"2002-08-12","Wunder":"1998-11-09","Skeanz":"2000-09-22","LIDER":"1999-07-08","Jopa":"2004-11-19","HamBak":"2003-08-19","DARKWINGS":"2004-03-04","Rahel":"2004-06-02","huhi":"1995-03-03","Rooster":"2004-02-24","Boukada":"2002-08-17","nuc":"2002-12-21","Paduck":"2004-11-09","Trymbi":"2000-09-23","Fudge":"2002-11-21","Contractz":"1999-12-04","Zinie":"2005-08-01","Bvoy":"1998-11-22","Ceos":"1998-12-01","Tracyn":"2004-01-30","Sheo":"2001-08-22","Serin":"2002-09-25","Ice":"2001-09-05","Stend":"2001-05-19","Morgan":"2001-05-20","Josedeodo":"1999-12-22","Quid":"2003-09-10","Dire":"2002-09-14","Eddie":"2007-05-12","Naak_Nako":"2005-03-14","Lyncas":"2003-10-27","Humanoid":"2000-03-14","Carzzy":"2002-01-31","Fleshy":"2001-10-24","Cube":"2002-08-23","Monki":"2004-03-14","Karis":"2003-01-20","About":"2005-09-08","yaoyao":"2003-04-25","Keshi":"2003-10-30","Junhao":"2005-05-24","Heru":"2004-01-03","Ryan3":"2005-10-14","Feather":"2002-09-28","369":"2001-07-12","naiyou":"2005-04-03","Creme":"2004-02-12","JiaQi":"2003-11-02","fengyue":"2005-08-20","Liangchen":"2004-12-10","Grizzly":"2005-01-26","Saber":"2003-07-18","Hena":"1999-10-02","Xiaoxia":"2003-03-25","Zika":"2003-07-07","Jiejie":"2001-10-27","Elk":"2001-09-29","Erha":"2003-11-17"};
+function correctRealAges(world,year){for(const p of Object.values(world.players)){if(!p.real||p.player)continue;let by=BIRTH_YEARS[p.name];if(by){p.birthYear=by;if(VERIFIED_BIRTH_DATES[p.name])p.birthDate=VERIFIED_BIRTH_DATES[p.name];p.age=year-by;p.ageVerified=true;p.ageEstimated=false}else{p.ageVerified=false;p.ageEstimated=true;if(!Number.isFinite(p.age))p.age=(p.league==='LCK CL'?18:p.league==='ACADEMY'?17:22)}}}
 function shownAge(p){return p.real&&!p.ageVerified?'미확인 (게임 내부 추정)':p.age+'세'}
 // 2026년 게임 시작 시점의 인지도·커리어를 바탕으로 한 제작자 평가(공식 지표가 아님).
 // 닉네임은 대소문자를 정규화하고, 실제 선수만 명시적 평가를 부여한다.
@@ -118,7 +121,7 @@ function fixFameOnLoad(world){
     p.famePatch2026=true;
   }
 }
-function makePlayer(name,pos,league,team,real=false,forceAge){let famous=['Faker','Chovy','Ruler','Canyon','Keria','Zeus','Caps','ShowMaker','Gumayusi','Oner','Kanavi','Kiin','Bdd','Knight','Bin','JackeyLove','Viper','Elk'];let strong=famous.includes(name)?r(86,94):real?r(73,88):r(48,65);let a=ATTR.map(()=>rnd(clamp(strong+r(-7,7),30,96)));let yearBorn=BIRTH_YEARS[name];let age=forceAge??(real&&yearBorn?2026-yearBorn:real?(league==='LCK CL'?18:22):Math.floor(r(16,20)));let peakStart=Math.floor(r(19,28)),peakEnd=peakStart+Math.floor(r(2,9));return {id:id(),name,pos,league,team,real,age,birthYear:real?yearBorn||null:null,ageVerified:!!(real&&yearBorn),ageEstimated:!!(real&&!yearBorn),stats:a,peakStart,peakEnd,curve:r(.65,1.35),potential:r(76,99),fame:real?initialFame({name,league,real:true}):Math.round(r(2,16)),famePatch2026:!!real,condition:Math.round(r(70,96)),champ:Object.fromEntries(CHAMPS[pos].map(c=>[c,Math.round(r(35,82))])),games:0,wins:0,kda:0,rating:0,trust:65,history:[],retired:false,role:'선수',bestOverall:avg(a)} }
+function makePlayer(name,pos,league,team,real=false,forceAge){let famous=['Faker','Chovy','Ruler','Canyon','Keria','Zeus','Caps','ShowMaker','Gumayusi','Oner','Kanavi','Kiin','Bdd','Knight','Bin','JackeyLove','Viper','Elk'];let strong=famous.includes(name)?r(86,94):real?r(73,88):r(48,65);let a=ATTR.map(()=>rnd(clamp(strong+r(-7,7),30,96)));let yearBorn=BIRTH_YEARS[name];let age=forceAge??(real&&yearBorn?2026-yearBorn:real?(league==='LCK CL'?18:22):Math.floor(r(16,20)));let peakStart=Math.floor(r(19,28)),peakEnd=peakStart+Math.floor(r(2,9));return {id:id(),name,pos,league,team,real,age,birthYear:real?yearBorn||null:null,birthDate:real?(VERIFIED_BIRTH_DATES[name]||null):null,ageVerified:!!(real&&yearBorn),ageEstimated:!!(real&&!yearBorn),stats:a,peakStart,peakEnd,curve:r(.65,1.35),potential:r(76,99),fame:real?initialFame({name,league,real:true}):Math.round(r(2,16)),famePatch2026:!!real,condition:Math.round(r(70,96)),champ:Object.fromEntries(CHAMPS[pos].map(c=>[c,Math.round(r(35,82))])),games:0,wins:0,kda:0,rating:0,trust:65,history:[],retired:false,role:'선수',bestOverall:avg(a)} }
 
 // 2026 LCK CL starting five (real player nicknames; roster snapshots may change).
 Object.assign(REAL,{"BNK FEARX Youth": ["Kangin", "Zephyr", "FIESTA", "Slayer", "Luon"], "DN SOOPers Challengers": ["Lancer", "DDoiV", "Flip", "Enosh", "Quantum"], "Dplus KIA Challengers": ["Jaehyuk", "Sharvel", "Garden", "Wayne", "Loopy"], "Gen.G Global Academy": ["Ripple", "Courage", "Kemish", "MUDAI", "SIRIUSS"], "BRION Challengers": ["DDahyuk", "Dinai", "Tempester", "OddEye", "PlanB"], "Hanwha Life Esports Challengers": ["Panther", "Jackal", "Cracker", "Pyeonsik", "Bluffing"], "KT Rolster Challengers": ["Sero", "Sylvie", "HwiChan", "FenRir", "Pollu"], "DRX Challengers": ["Frog", "Winner", "AKaJe", "LazyFeel", "Minous"], "Nongshim Esports Academy": ["Janus", "Mihawk", "SeTab", "Lucy", "Pleata"], "T1 Esports Academy": ["Haetae", "Painter", "Guti", "Cypher", "Cloud"]});
@@ -262,7 +265,22 @@ function monthArmyPrompt(){
 function newGame(){let name=document.getElementById('nick').value.trim()||'ROOKIE',team=document.getElementById('startTeam')?.value,pos=document.getElementById('pos').value,type=document.getElementById('startType')?.value,league='ACADEMY';if(!team||!LEAGUES.ACADEMY.includes(team))return;if(!window.startTypeChoices||!window.startTypeChoices.includes(type)){alert('제시된 선수 유형 중 하나를 선택해 주세요.');return;}let w=makeWorld();calibratePreseason(w);for(const ai of Object.values(w.players))ai.bestOverall=avg(ai.stats);let p=makePlayer(name,pos,league,team,false,16);p.player=true;p.placeholder=false;p.rookie=true;p.stats=ATTR.map((_,i)=>rnd(51+r(0,11)));let boosts={'라인전 괴물':1,'한타 지배자':2,'운영의 마술사':3,'챔피언 장인':4,'강철 멘탈':5,'팀플레이 메이커':6,'피지컬 천재':0,'육각형 유망주':-1,'후반 캐리형':2,'공격적인 플레이메이커':0,'안정적인 수비형':5,'전략적 리더':3};let ix=boosts[type];if(ix===-1)p.stats=p.stats.map(x=>rnd(x+2));else p.stats[ix]+=7;p.type=type;w.players[p.id]=p;{let t=w.teams[team],old=t.players.find(pid=>w.players[pid]?.pos===pos);if(old){t.players=t.players.filter(pid=>pid!==old);w.players[old].team='FA';w.players[old].freeAgent=true}t.players.push(p.id)}s={v:5,year:2026,month:1,player:p.id,world:w,transferLog:[],transferSequence:0,cash:40,salary:120,contract:1,contractPending:false,focus:[0,1,2],inventory:[],equipped:{},history:[],tournaments:[],news:[],monthly:null,retired:false,coachCareer:false,military:0,exempt:false,militaryStatus:"미필",asianSelections:{},asianResults:{},asianGoldMedalists:[],champions:[],rivals:{},sponsors:[],currentEvents:[],seasonStats:{games:0,wins:0,rating:0},meta:pick(['한타','라인전','운영']),monthEvents:[],lastStandings:{},brackets:[],yearAwards:[],careerScore:0};tab='home';normalizeAllRosters();save();render()}
 function me(){return s.world.players[s.player]}function teamOf(p){return s.world.teams[p.team]}function effective(p){let a=[...p.stats];if(p.player)for(let item of s.inventory)if(s.equipped[item[0]]===item[1]&&item[3]<7)a[item[3]]+=item[4];return a.map(x=>clamp(x,0,105))}
 function power(t){return t?lineupPower(t):40}
-function agePlayer(p){if(p.player){let row=RATES.find(x=>p.age<=x[0]);p.stats=p.stats.map((v,i)=>{let focused=s.focus.includes(i),lo=row[focused?3:1],hi=row[focused?4:2],d=r(lo,hi)*1.3;let limit=v>88?.22:v>78?.5:1;return rnd(clamp(v+d*(d>0?2*limit:1),20,99))})}else{let phase=p.age<p.peakStart?1:p.age<=p.peakEnd?.4:-1;let dir=[1.15,.9,.9,.5,.7,.25,.25];p.stats=p.stats.map((v,i)=>{let factor=dir[i],base=phase===1?r(.05,.22):phase===.4?r(-.05,.07):r(-.21,-.04);if(i>=3&&phase===-1)base+=r(.01,.12);let d=base*p.curve*factor*(v>88&&base>0?.25:1)*(v>78&&base>0?.6:1);if(d>0)d*=1.3/1.1;return rnd(clamp(v+(d>0?2*d:d),30,99))})}p.condition=clamp(p.condition+r(-8,9),42,100);for(let c of Object.keys(p.champ))p.champ[c]=clamp(p.champ[c]+r(-.15,.45),20,99);if(!p.player)checkAIRetirement(p)}
+function agePlayer(p){
+  const row=RATES.find(x=>p.age<=x[0])||RATES[RATES.length-1];
+  p.stats=p.stats.map((v,i)=>{
+    const focused=!!p.player&&s.focus.includes(i);
+    const lo=row[focused?3:1],hi=row[focused?4:2];
+    // AI: 플레이어의 일반 훈련 성장 규칙과 동일한 감소량, 증가량만 1.1배.
+    // 플레이어의 집중 훈련과 성장 수치는 변경하지 않는다.
+    let d=r(lo,hi);
+    if(!p.player&&d>0)d*=1.1;
+    const limit=v>88?.30:v>78?.60:1;
+    return rnd(clamp(v+d*(d>0?limit:1),20,99));
+  });
+  p.condition=clamp(p.condition+r(-8,9),42,100);
+  for(let c of Object.keys(p.champ))p.champ[c]=clamp(p.champ[c]+r(-.15,.45),20,99);
+  if(!p.player)checkAIRetirement(p);
+}
 function checkAIRetirement(p){
  if(!p||p.player||p.retired)return;
  let now=avg(p.stats);
@@ -462,23 +480,38 @@ function simulateMatch(a,b,bo=3,important=false){let A=s.world.teams[a],B=s.worl
 function leagueRound(league,label){let names=[...LEAGUES[league]],shuffle=names.sort(()=>Math.random()-.5),results=[],standing=Object.fromEntries(names.map(n=>[n,{w:0,l:0,sets:0}]));let rounds=league==='LCK'?2:1;for(let round=0;round<rounds;round++)for(let i=0;i<names.length;i++)for(let j=i+1;j<names.length;j++){let a=names[i],b=names[j],res=simulateMatch(a,b);results.push(res);standing[res.winner].w++;standing[res.loser].l++;standing[a].sets+=res.sa-res.sb;standing[b].sets+=res.sb-res.sa}let ranks=Object.keys(standing).sort((a,b)=>standing[b].w-standing[a].w||standing[b].sets-standing[a].sets);let event={year:s.year,month:s.month,name:label,kind:'league',league,standings:ranks.map((name,i)=>({rank:i+1,name,...standing[name]})),matches:results};s.tournaments.push(event);s.lastStandings[league]=event;return event}
 function knockout(teams,label,bo=5,kind='playoffs'){let alive=[...new Set(teams)].filter(t=>s.world.teams[t]);let rounds=[],count=0;while(alive.length>1&&count++<7){let games=[],next=[];let pairings=[];for(let i=0;i<Math.floor(alive.length/2);i++)pairings.push([alive[i],alive[alive.length-1-i]]);if(alive.length%2)next.push(alive[Math.floor(alive.length/2)]);for(let [a,b] of pairings){let res=simulateMatch(a,b,bo,true);games.push(res);next.push(res.winner)}rounds.push({name:alive.length<=2?'결승':alive.length<=4?'4강':alive.length<=8?'8강':'예선',games});alive=next.sort((a,b)=>power(s.world.teams[b])-power(s.world.teams[a]))}let event={year:s.year,month:s.month,name:label,kind,rounds,winner:alive[0]||'',matches:rounds.flatMap(x=>x.games)};s.tournaments.push(event);if(event.winner){news(`🏆 ${label} 우승: ${event.winner}`);if(event.winner===me().team){s.champions.push({year:s.year,name:label});me().fame=clamp(me().fame+8,0,100)}}return event}
 function seededPlayoffs(league,label){let ranks=qualify(league,Math.min(8,LEAGUES[league].length));if(ranks.length<6)return knockout(ranks,label,5);let playinGames=[simulateMatch(ranks[4],ranks[7],3,true),simulateMatch(ranks[5],ranks[6],3,true)];let playin={year:s.year,month:s.month,name:`${label} 플레이인`,kind:'playin',rounds:[{name:'플레이인',games:playinGames}],matches:playinGames};s.tournaments.push(playin);let field=[...ranks.slice(0,4),...playinGames.map(g=>g.winner)];let event=knockout(field,label,5);event.seededFrom=playin.name;return [playin,event]}
-function swiss(teams,label){let state=Object.fromEntries(teams.map(n=>[n,{w:0,l:0,history:[]}])),rounds=[];for(let k=1;k<=5;k++){let active=teams.filter(t=>state[t].w<3&&state[t].l<3),groups={};for(let t of active){let key=`${state[t].w}-${state[t].l}`;(groups[key]??=[]).push(t)}let pairs=[],carry=[];for(let group of Object.values(groups)){group.sort(()=>Math.random()-.5);if(group.length%2)carry.push(group.pop());for(let i=0;i<group.length;i+=2)pairs.push([group[i],group[i+1]])}carry.sort(()=>Math.random()-.5);for(let i=0;i<carry.length-1;i+=2)pairs.push([carry[i],carry[i+1]]);if(carry.length%2){let lone=carry[carry.length-1],other=active.find(t=>t!==lone&&!pairs.some(pair=>pair.includes(t)));if(other){let pair=pairs.find(p=>p.includes(other));if(pair){let replacement=pair.find(t=>t!==other);pair.splice(0,2,replacement,lone);pairs.push([other,replacement])}}}let games=[];for(let [a,b] of pairs){if(!a||!b||a===b||state[a].w===3||state[b].w===3)continue;let res=simulateMatch(a,b,(state[a].w===2||state[a].l===2||state[b].w===2||state[b].l===2)?3:1,true);state[res.winner].w++;state[res.loser].l++;state[a].history.push(res);state[b].history.push(res);games.push(res)}rounds.push({name:`스위스 ${k}라운드`,games})}let qualified=teams.filter(t=>state[t].w===3).slice(0,8);let fallback=teams.filter(t=>!qualified.includes(t)).sort((a,b)=>state[b].w-state[a].w||state[a].l-state[b].l);qualified.push(...fallback.slice(0,8-qualified.length));let ev={year:s.year,month:s.month,name:label,kind:'swiss',rounds,matches:rounds.flatMap(z=>z.games),swiss:Object.entries(state).map(([name,x])=>({name,w:x.w,l:x.l})).sort((a,b)=>b.w-a.w||a.l-b.l),qualified};s.tournaments.push(ev);return ev}
+function worldsRoundOnePairs(teams){
+ const region=t=>s.world.teams[t]?.league||'UNKNOWN';
+ // Randomized backtracking guarantees no same-region match if a valid matching exists.
+ const search=remaining=>{
+  if(!remaining.length)return [];
+  const a=remaining[0],options=remaining.slice(1).filter(b=>region(a)!==region(b)).sort(()=>Math.random()-.5);
+  for(const b of options){const rest=remaining.slice(1).filter(t=>t!==b);const tail=search(rest);if(tail)return [[a,b],...tail]}
+  return null;
+ };
+ return search([...teams].sort(()=>Math.random()-.5));
+}
+function swiss(teams,label){let state=Object.fromEntries(teams.map(n=>[n,{w:0,l:0,history:[]}])),rounds=[];for(let k=1;k<=5;k++){let active=teams.filter(t=>state[t].w<3&&state[t].l<3),groups={};for(let t of active){let key=`${state[t].w}-${state[t].l}`;(groups[key]??=[]).push(t)}let pairs=[],carry=[];for(let group of Object.values(groups)){group.sort(()=>Math.random()-.5);if(group.length%2)carry.push(group.pop());for(let i=0;i<group.length;i+=2)pairs.push([group[i],group[i+1]])}carry.sort(()=>Math.random()-.5);for(let i=0;i<carry.length-1;i+=2)pairs.push([carry[i],carry[i+1]]);if(carry.length%2){let lone=carry[carry.length-1],other=active.find(t=>t!==lone&&!pairs.some(pair=>pair.includes(t)));if(other){let pair=pairs.find(p=>p.includes(other));if(pair){let replacement=pair.find(t=>t!==other);pair.splice(0,2,replacement,lone);pairs.push([other,replacement])}}}if(k===1&&/^Worlds 스위스/.test(label)){const legal=worldsRoundOnePairs(active);if(legal)pairs=legal;else console.warn('Worlds 1R: 서로 다른 리그 대진 구성 불가')}let games=[];for(let [a,b] of pairs){if(!a||!b||a===b||state[a].w===3||state[b].w===3)continue;let res=simulateMatch(a,b,(state[a].w===2||state[a].l===2||state[b].w===2||state[b].l===2)?3:1,true);state[res.winner].w++;state[res.loser].l++;state[a].history.push(res);state[b].history.push(res);games.push(res)}rounds.push({name:`스위스 ${k}라운드`,games})}let qualified=teams.filter(t=>state[t].w===3).slice(0,8);let fallback=teams.filter(t=>!qualified.includes(t)).sort((a,b)=>state[b].w-state[a].w||state[a].l-state[b].l);qualified.push(...fallback.slice(0,8-qualified.length));let ev={year:s.year,month:s.month,name:label,kind:'swiss',rounds,matches:rounds.flatMap(z=>z.games),swiss:Object.entries(state).map(([name,x])=>({name,w:x.w,l:x.l})).sort((a,b)=>b.w-a.w||a.l-b.l),qualified};s.tournaments.push(ev);return ev}
 function qualify(league,n){let e=s.lastStandings[league];if(e?.year===s.year)return e.standings.slice(0,n).map(x=>x.name);return [...LEAGUES[league]].sort((a,b)=>power(s.world.teams[b])-power(s.world.teams[a])).slice(0,n)}
 // 2026 tournament engine. All stage matches are stored and rendered, rather than independently invented.
 function recordStage(name,kind,rounds,extra={}){let ev={year:s.year,month:s.month,name,kind,rounds,matches:rounds.flatMap(q=>q.games||[]),...extra};s.tournaments.push(ev);if(ev.winner){news(`🏆 ${name} 우승: ${ev.winner}`);if(ev.winner===me().team){s.champions.push({year:s.year,name});me().fame=clamp(me().fame+8,0,100)}}return ev}
 function matchRound(name,pairs,bo=5){return {name,games:pairs.filter(p=>p[0]&&p[1]&&p[0]!==p[1]).map(([a,b])=>simulateMatch(a,b,bo,true))}}
 function mWin(g){return g.winner}function mLose(g){return g.loser}
-function sixTeamDouble(field,label){ // Seeds 1–2 begin in winner round 2; round 1 losers enter lower bracket.
+function sixTeamDouble(field,label){ // Seed 1/2: upper R2. Higher seed among upper R2 losers joins lower R3.
  let [a,b,c,d,e,f]=field,rounds=[];
  let q=matchRound('승자조 1라운드',[[c,f],[d,e]]);rounds.push(q);
  let u=matchRound('승자조 2라운드',[[a,mWin(q.games[1])],[b,mWin(q.games[0])]]);rounds.push(u);
  let l1=matchRound('패자조 1라운드',[[mLose(q.games[0]),mLose(q.games[1])]]);rounds.push(l1);
  let uf=matchRound('승자조 3라운드',[[mWin(u.games[0]),mWin(u.games[1])]]);rounds.push(uf);
- let l2=matchRound('패자조 2라운드',[[mWin(l1.games[0]),mLose(u.games[1])]]);rounds.push(l2);
- let l3=matchRound('패자조 3라운드',[[mWin(l2.games[0]),mLose(u.games[0])]]);rounds.push(l3);
+ const seedIndex=t=>field.indexOf(t);
+ const uLosers=u.games.map(mLose).sort((x,y)=>seedIndex(x)-seedIndex(y));
+ const higherSeedLoser=uLosers[0],lowerSeedLoser=uLosers[1];
+ let l2=matchRound('패자조 2라운드',[[mWin(l1.games[0]),lowerSeedLoser]]);rounds.push(l2);
+ let l3=matchRound('패자조 3라운드',[[mWin(l2.games[0]),higherSeedLoser]]);rounds.push(l3);
  let lf=matchRound('패자조 결승',[[mWin(l3.games[0]),mLose(uf.games[0])]]);rounds.push(lf);
  let final=matchRound('최종 결승',[[mWin(uf.games[0]),mWin(lf.games[0])]]);rounds.push(final);
- return recordStage(label,'playoffs',rounds,{winner:mWin(final.games[0]),runnerUp:mLose(final.games[0]),seeds:field});
+ const finalRanking=[mWin(final.games[0]),mLose(final.games[0]),mLose(lf.games[0]),mLose(l3.games[0]),mLose(l2.games[0]),mLose(l1.games[0])];
+ return recordStage(label,'playoffs',rounds,{winner:finalRanking[0],runnerUp:finalRanking[1],finalRanking,standings:finalRanking.map((name,i)=>({rank:i+1,name})),seeds:field});
 }
 function doubleFour(field,label,bo=5,qualifiers=1){let [a,b,c,d]=field,rounds=[];
  let x=matchRound('승자조 1라운드',[[a,d],[b,c]],bo);rounds.push(x);
@@ -632,7 +665,7 @@ function lckFinals(){
  const q=[mWin(p1.games[0]),mWin(p3.games[0])];
  const pi=recordStage('LCK 시즌 플레이인','playin',[p1,p2,p3],{qualified:q,note:'레전드 5위 vs 라이즈 1위 승자는 플레이오프 5번 시드 직행. 라이즈 2위 vs 3위 승자가 첫 경기 패자와 6번 시드 최종 진출전을 진행합니다.'});
  const po=sixTeamDouble([L[0],L[1],L[2],L[3],q[0],q[1]],'LCK 시즌 플레이오프');
- s.worldsLCK=[po.winner,po.runnerUp,...[L[0],L[1],L[2],L[3],...q].filter(x=>x!==po.winner&&x!==po.runnerUp).sort((a,b)=>power(s.world.teams[b])-power(s.world.teams[a]))].slice(0,4);
+ s.worldsLCK=po.finalRanking.slice(0,4);
  return [pi,po];
 }
 function singleTopSix(league,label){let seeds=qualify(league,6);return sixTeamDouble(seeds,label)}
@@ -685,12 +718,35 @@ function msiEvent(){let seed=(l,n)=>s.msiSeeds?.[l]?.slice(0,n)||qualify(l,n);
  let regions=['LCK','LPL','LEC','LCS','LCP','CBLOL'];let q=[...regions.flatMap(l=>seed(l,l==='CBLOL'?1:2))];q=[...new Set(q)];
  let direct=regions.map(l=>seed(l,1)[0]);let top2=['LCK','LPL'].map(l=>seed(l,2)[1]);let bracket=[...new Set([...direct,...top2])].slice(0,7);
  let piTeams=q.filter(t=>!bracket.includes(t));while(piTeams.length<4)piTeams.push(...q.filter(t=>!bracket.includes(t)&&!piTeams.includes(t)).slice(0,4-piTeams.length));
- let pi=doubleFour(piTeams.slice(0,4),'MSI 플레이인 (4팀 → 1팀)',5);let field=[...bracket,pi.winner].sort((a,b)=>power(s.world.teams[b])-power(s.world.teams[a]));let po=eightDouble(field,'MSI 브래킷 스테이지',5);s.msiChampion=po.winner;return [pi,po]}
-function worldsEvents(){let slots={LCK:3,LPL:3,LEC:3,LCS:3,LCP:3,CBLOL:2};if(s.msiChampion){let l=s.world.teams[s.msiChampion]?.league;if(l&&slots[l])slots[l]++}let regionSecond=s.msiChampion&&s.world.teams[s.msiChampion]?.league==='LCK'?'LPL':'LCK';slots[regionSecond]++;
+ let pi=doubleFour(piTeams.slice(0,4),'MSI 플레이인 (4팀 → 1팀)',5);let field=[...bracket,pi.winner].sort((a,b)=>power(s.world.teams[b])-power(s.world.teams[a]));let po=eightDouble(field,'MSI 브래킷 스테이지',5);s.msiChampion=po.winner;
+ // MSI bracket placement: finalists first, then order of elimination (latest elimination ranks higher).
+ const eliminated=[];for(const round of po.rounds){if(/패자조 1라운드|패자조 2라운드|패자조 3라운드|패자조 결승/.test(round.name))for(const g of round.games)eliminated.push(g.loser)}
+ const ranked=[po.winner,po.runnerUp,...eliminated.reverse(),...field].filter((t,i,a)=>t&&a.indexOf(t)===i);
+ // Include play-in teams below bracket participants; rank regions by their best MSI finish.
+ const fullRank=[...ranked,...pi.matches.map(g=>g.loser)].filter((t,i,a)=>t&&a.indexOf(t)===i);
+ s.msiRegionRanking=regions.slice().sort((a,b)=>{
+  const best=l=>Math.min(...fullRank.map((t,i)=>s.world.teams[t]?.league===l?i:999));
+  return best(a)-best(b)||regions.indexOf(a)-regions.indexOf(b);
+ });
+ return [pi,po]}
+function worldsEvents(){
+ let slots={LCK:3,LPL:3,LEC:3,LCS:3,LCP:3,CBLOL:2};
+ const msiTop=(s.msiRegionRanking||['LCK','LPL']).filter(l=>slots[l]!==undefined).slice(0,2);
+ // Extra Worlds berths: MSI champion's region and highest-ranked other region.
+ const championRegion=s.world.teams[s.msiChampion]?.league;
+ if(championRegion&&slots[championRegion]!==undefined)slots[championRegion]++;
+ const extraRegion=msiTop.find(l=>l!==championRegion)||msiTop[0];
+ if(extraRegion)slots[extraRegion]++;
  let entrants=Object.entries(slots).flatMap(([l,n])=>l==='LCK'&&s.worldsLCK?s.worldsLCK.slice(0,n):qualify(l,n));entrants=[...new Set(entrants)];
  if(entrants.length!==19){let additional=Object.keys(slots).flatMap(l=>qualify(l,5));entrants.push(...additional.filter(x=>!entrants.includes(x)).slice(0,19-entrants.length))}
- s.worldsEntrants=[...entrants];let byLeague=l=>entrants.filter(x=>s.world.teams[x]?.league===l);let playin=[...['LEC','LCS','LCP'].map(l=>byLeague(l).at(-1)),byLeague('CBLOL').at(-1)].filter(Boolean);let direct=entrants.filter(x=>!playin.includes(x)).slice(0,15);
- let pi=doubleFour(playin,'Worlds 플레이인 (BO5 더블 엘리미네이션)',5);let sw=swiss([...direct,pi.winner],'Worlds 스위스 스테이지');s.worldsQualified=sw.qualified;return [pi,sw]}
+ s.worldsEntrants=[...entrants];
+ const byLeague=l=>entrants.filter(x=>s.world.teams[x]?.league===l);
+ // Two highest MSI regions skip play-in; each of the other four regions sends its lowest seed.
+ const playin=Object.keys(slots).filter(l=>!msiTop.includes(l)).map(l=>byLeague(l).at(-1)).filter(Boolean);
+ const direct=entrants.filter(x=>!playin.includes(x));
+ let pi=doubleFour(playin,'Worlds 플레이인 (BO5 더블 엘리미네이션)',5);
+ let sw=swiss([...direct,pi.winner],'Worlds 스위스 스테이지');s.worldsQualified=sw.qualified;
+ return [pi,sw]}
 
 // Cup qualification rules for 2026; later seasons use simulated ranking/qualifiers.
 function uniqueExisting(names){return [...new Set(names)].filter(x=>x&&s.world.teams[x])}
@@ -806,13 +862,68 @@ function demaciaCup(){
  const sw=demaciaSwiss(chosen),bracket=knockout(sw.qualified,'Demacia Cup 녹아웃 스테이지',5);
  bracket.note='8팀 싱글 엘리미네이션 · 모든 경기 BO5';return [sw,bracket];
 }
+// DGCI: CL-only international event. Overseas developmental circuits are abstracted.
+function dgciTournament(){
+ const previous=s.tournaments.find(e=>e.year===s.year&&e.name==='DGCI 본선');
+ if(previous)return [];
+ const last=s.tournaments.filter(e=>e.year===s.year&&e.name==='LCK CL 상반기 플레이오프').at(-1);
+ const spring=s.lastStandings['LCK CL'];
+ let korean=[];
+ if(last?.finalRanking?.length)korean=last.finalRanking.filter(t=>LEAGUES['LCK CL'].includes(t)).slice(0,4);
+ if(korean.length<4){
+  const wins={};for(const g of last?.matches||[]){wins[g.winner]=(wins[g.winner]||0)+1}
+  korean=[...new Set([...korean,...Object.keys(wins).sort((a,b)=>wins[b]-wins[a]),...(spring?.standings||[]).map(x=>x.name),...LEAGUES['LCK CL']])].filter(t=>LEAGUES['LCK CL'].includes(t)).slice(0,4);
+ }
+ // No fabricated real-world foreign rosters: temporary fictional development representatives.
+ const regions=[['LPL','LPL Development A'],['LPL','LPL Development B'],['EMEA','EMEA Development'],['Americas','Americas Development']];
+ const foreign=[],created=[];
+ for(const [region,name] of regions){
+  const team={id:name,name,league:'DGCI DEV',region,players:[],staff:[{name:'Development Coach',role:'감독',skill:68}],prestige:42};
+  s.world.teams[name]=team;created.push(name);
+  for(const pos of POS){
+   const player=makePlayer(genName(),pos,'DGCI DEV',name,false,Math.floor(r(17,21)));
+   const target=region==='LPL'?65:region==='EMEA'?62:61;
+   player.stats=ATTR.map(()=>rnd(clamp(target+r(-5,5),35,90)));
+   player.dgciTemporary=true;
+   s.world.players[player.id]=player;team.players.push(player.id);
+  }
+  foreign.push(name);
+ }
+ const field=[...korean,...foreign];
+ // Two groups of four, round robin BO3; top two advance to BO5 semifinals.
+ const groups=[[field[0],field[2],field[4],field[6]],[field[1],field[3],field[5],field[7]]];
+ const rounds=[],advancers=[];
+ for(let gi=0;gi<groups.length;gi++){
+  const names=groups[gi],games=[],record=Object.fromEntries(names.map(t=>[t,{w:0,l:0,sets:0}]));
+  for(let i=0;i<4;i++)for(let j=i+1;j<4;j++){
+   const g=simulateMatch(names[i],names[j],3,true);if(!g)continue;
+   games.push(g);record[g.winner].w++;record[g.loser].l++;
+   record[g.a].sets+=g.sa-g.sb;record[g.b].sets+=g.sb-g.sa;
+  }
+  const ranked=[...names].sort((a,b)=>record[b].w-record[a].w||record[b].sets-record[a].sets||power(s.world.teams[b])-power(s.world.teams[a]));
+  advancers.push(ranked.slice(0,2));
+  rounds.push({name:`${gi?'B':'A'}조 그룹 스테이지 BO3`,games,standings:ranked.map((name,i)=>({name,rank:i+1,...record[name]}))});
+ }
+ const semi=matchRound('4강 BO5',[[advancers[0][0],advancers[1][1]],[advancers[1][0],advancers[0][1]]],5);rounds.push(semi);
+ const final=matchRound('결승 BO5',[[mWin(semi.games[0]),mWin(semi.games[1])]],5);rounds.push(final);
+ const winner=mWin(final.games[0]);
+ const event=recordStage('DGCI 본선','international',rounds,{winner,runnerUp:mLose(final.games[0]),qualified:field,league:'LCK CL',note:'LCK CL 상반기 성적 상위 4팀 + 해외 육성리그 대표 4팀. 해외 리그와 그룹 구성은 게임용 간소화 모델이며 공식 DGCI 규정과 다를 수 있습니다.'});
+ s.dgciResults??={};s.dgciResults[s.year]={winner,runnerUp:event.runnerUp,teams:field};
+ // Keep temporary teams/players only for match simulation; avoid roster contamination.
+ for(const name of created){for(const pid of s.world.teams[name]?.players||[])delete s.world.players[pid];delete s.world.teams[name]}
+ if(korean.includes(me().team)){
+  const appearances=event.matches.filter(g=>g.a===me().team||g.b===me().team);
+  if(appearances.length){me().fame=clamp(me().fame+2,0,100);news(`🌏 ${me().name}, DGCI ${appearances.length}경기 참가`)}
+ }
+ return [event];
+}
 function eventsForMonth(month){let out=[];
  if(month===1){out.push(lckCupBattle());out.push(...lecVersus());for(let l of ['LCS','LCP','CBLOL'])out.push(leagueSeason(l,`${l} 시즌 개막 정규시즌`,1))}
  if(month===2){out.push(...lckCupFinals());out.push(lplSplitStage(1));out.push(...lplSplitFinals(1));for(let l of ['LCS','LCP','CBLOL']){let ev=singleTopSix(l,l==='LCS'?'LCS Lock-In 플레이오프':l==='CBLOL'?'CBLOL Cup 플레이오프':'LCP Split 1 플레이오프');s['fst'+l]=ev.winner;out.push(ev)}}
  if(month===3){out.push(...[].concat(firstStand()))}
  if(month===4){out.push(lckOpening());for(let l of ['LEC','LCS','LCP','CBLOL','LCK CL','ACADEMY'])out.push(leagueSeason(l,`${l} 상반기 정규시즌`,l==='LEC'?1:2))}
  if(month===5){for(let l of ['LEC','LCS','LCP','CBLOL','LCK CL','ACADEMY'])out.push(singleTopSix(l,`${l} 상반기 플레이오프`));out.push(lplSplitStage(2))}
- if(month===6){out.push(lckRoadMSI());out.push(...lplSplitFinals(2));s.msiSeeds={...(s.msiSeeds||{}),...Object.fromEntries(['LPL','LEC','LCS','LCP','CBLOL'].map(l=>[l,qualify(l,l==='CBLOL'?1:2)]))};out.push(...msiEvent())}
+ if(month===6){out.push(...dgciTournament());out.push(lckRoadMSI());out.push(...lplSplitFinals(2));s.msiSeeds={...(s.msiSeeds||{}),...Object.fromEntries(['LPL','LEC','LCS','LCP','CBLOL'].map(l=>[l,qualify(l,l==='CBLOL'?1:2)]))};out.push(...msiEvent())}
  if(month===7){out.push(lckLater());out.push(lplSplitStage(3));for(let l of ['LEC','LCS','LCP','CBLOL','LCK CL','ACADEMY'])out.push(leagueSeason(l,`${l} 하반기 정규시즌`,l==='LEC'?1:2));out.push(...ewcTournament())}
  if(month===8){out.push(...lckFinals());out.push(...lplSplitFinals(3));for(let l of ['LEC','LCS','LCP','CBLOL','LCK CL','ACADEMY'])out.push(singleTopSix(l,`${l} 하반기 플레이오프`))}
  if(month===9&&asianYear(s.year))out.push(asianTournament());
@@ -1001,7 +1112,7 @@ function header(){document.getElementById('topbar').innerHTML=s?`${esc(me().name
 function menu(){return `<nav>${[['home','홈'],['training','훈련'],['roster','팀/로스터'],['events','대회 기록'],['calendar','캘린더'],['transfer','이적 시장'],['shop','장비 상점'],['records','커리어'],['news','뉴스/커뮤니티'],['settings','설정']].map(([k,v])=>`<button class="${tab===k?'active':''}" onclick="setTab('${k}')">${v}</button>`).join('')}</nav>`}
 function home(){let p=me(),t=teamOf(p),eff=effective(p);return `<div class="card hero"><h2>${esc(p.name)} <span class="pill">${p.pos}</span> <span class="pill">${esc(p.type||'프로게이머')}</span></h2><p>${esc(t.name)} · ${p.age}세 · ${p.league} · 명성 ${p.fame.toFixed(0)}/100 · ${s.meta} 메타</p><p class="pill">🎖️ 병역: ${militaryState()}</p>${asianYear(s.year)&&s.month>=6?`<p class="pill">🇰🇷 ${s.year} 아시안게임: ${s.asianSelections?.[s.year]?.playerSelected?"선발":"미선발"}</p>`:""}<div class="stats"><div class="stat">종합 능력치<b>${avg(eff).toFixed(2)}</b></div><div class="stat">컨디션<b>${p.condition.toFixed(0)}</b></div><div class="stat">감독 신뢰<b>${p.trust.toFixed(0)}</b></div><div class="stat">연봉<b>${s.salary.toFixed(0)}만 원</b></div></div><p><button class="primary" onclick="nextMonth()">${s.year}년 ${s.month}월 진행 ▶</button> ${s.monthly?'<button onclick="showLast()">지난 월간 결산</button>':''}</p></div><div class="grid"><section class="card"><h3>📊 능력치</h3>${ATTR.map((a,i)=>`<div class="row"><span style="width:80px">${a}</span><b style="width:50px">${eff[i].toFixed(2)}</b><div class="bar" style="flex:1"><span style="width:${clamp(eff[i],0,100)}%"></span></div></div>`).join('')}</section><section class="card"><h3>📣 최근 뉴스</h3>${s.news.slice(0,7).map(x=>`<p>· ${esc(x.text)} <small>${x.year}.${x.month}</small></p>`).join('')||'<p class="muted">새 시즌이 시작되었습니다.</p>'}<h3>이번 시즌</h3><p>${s.seasonStats.games}경기 · ${s.seasonStats.wins}승 · 평균 평점 ${s.seasonStats.games?(s.seasonStats.rating/s.seasonStats.games).toFixed(2):'-'}</p></section></div>${s.offers?.length?'<div class="notice">📩 새로운 이적 제안이 있습니다. 이적 시장에서 확인하세요.</div>':''}`}
 function showLast(){if(!s.monthly)return;document.getElementById('overlayBody').innerHTML=monthlyHTML(s.monthly)+'<button class="primary" onclick="closeOverlay()">닫기</button>';document.getElementById('overlay').classList.remove('hide')}
-function training(){return `<section class="card"><h2>🎯 집중 훈련</h2><p>최대 3개 선택 · 플레이어 및 AI 성장량 2배 적용 · 기존 1.3배 보정 유지 · 높은 능력치는 성장 둔화</p><div class="grid">${ATTR.map((a,i)=>`<label class="stat"><input type="checkbox" onchange="toggleFocus(${i},this.checked)" ${s.focus.includes(i)?'checked':''}>${a} <b>${me().stats[i].toFixed(2)}</b></label>`).join('')}</div><h3>챔피언 숙련도</h3>${Object.entries(me().champ).map(([n,v])=>`<span class="pill">${esc(n)} ${v.toFixed(0)}</span>`).join('')}<p class="muted">챔피언별 숙련도와 메타는 경기력에 간접 반영됩니다.</p></section>`}
+function training(){return `<section class="card"><h2>🎯 집중 훈련</h2><p>최대 3개 선택 · 플레이어는 표의 월간 성장량 적용 · AI 양수 성장량은 일반 훈련의 1.1배 · 높은 능력치는 성장 둔화</p><div class="grid">${ATTR.map((a,i)=>`<label class="stat"><input type="checkbox" onchange="toggleFocus(${i},this.checked)" ${s.focus.includes(i)?'checked':''}>${a} <b>${me().stats[i].toFixed(2)}</b></label>`).join('')}</div><h3>챔피언 숙련도</h3>${Object.entries(me().champ).map(([n,v])=>`<span class="pill">${esc(n)} ${v.toFixed(0)}</span>`).join('')}<p class="muted">챔피언별 숙련도와 메타는 경기력에 간접 반영됩니다.</p></section>`}
 function toggleFocus(i,on){if(on&&!s.focus.includes(i)){if(s.focus.length>=3){alert('집중 훈련은 최대 3개입니다.');render();return}s.focus.push(i)}else if(!on)s.focus=s.focus.filter(x=>x!==i);save();render()}
 function roster(){let t=s.world.teams[subTeam];if(!t||t.league!==subLeague){subTeam=LEAGUES[subLeague][0];t=s.world.teams[subTeam]}let ps=t.players.map(x=>s.world.players[x]).filter(Boolean);return `<section class="card"><h2>🌐 팀 / 로스터</h2><div class="row"><select onchange="subLeague=this.value;subTeam=LEAGUES[subLeague][0];render()">${Object.keys(LEAGUES).map(l=>`<option ${l===subLeague?'selected':''}>${esc(l)}</option>`).join('')}</select><select onchange="subTeam=this.value;render()">${LEAGUES[subLeague].map(n=>`<option ${n===subTeam?'selected':''}>${esc(n)}</option>`).join('')}</select></div><h3>${esc(t.name)} <span class="pill">${t.league}</span></h3><p class="notice">팀 현재 오버롤 <b>${rosterStrength(t).toFixed(2)}</b> · 경기 전력 <b>${power(t).toFixed(2)}</b> · ${t.league} 시작 기준 <b>${LEAGUE_STRENGTH[t.league]??60}</b> (게임용 초기 밸런스)</p><div class="scroll"><table><tr><th>포지션</th><th>닉네임</th><th>나이</th><th>종합</th><th>명성</th><th>구분</th></tr>${ps.sort((a,b)=>POS.indexOf(a.pos)-POS.indexOf(b.pos)||avg(b.stats)-avg(a.stats)).map(p=>`<tr><td>${p.pos}</td><td><button onclick="showProfile('${p.id}')">${esc(p.name)}</button></td><td>${shownAge(p)}</td><td>${avg(effective(p)).toFixed(2)}</td><td>${p.fame.toFixed(0)}</td><td>${p.player?'나':p.placeholder?'생성 선수':p.real?'실제 닉네임':'가상 신인'}</td></tr>`).join('')}</table></div><h3>🎓 감독 / 코치</h3>${t.staff.map(c=>`<span class="pill">${esc(c.role)} ${esc(c.name)} · 지도력 ${c.skill}${c.fictional?' (가상)':''}</span>`).join('')}</section><div class="notice">2026년 기준 팀 명단을 적용했습니다. 미확인 실제 나이는 그대로 표시하며 일부 팀·선수 정보는 추가 검증이 필요합니다. LCK CL 10팀·LEC 정규 10팀이며, LEC Versus 특별 초청팀은 상시 참가팀에서 제외했습니다. 일부 육성·기타 지역 팀에는 생성 선수가 있을 수 있습니다. 능력치·명성은 게임용 평가치이며, 유명 선수는 2026년 기준 커리어와 인지도를 반영했습니다. 출생연도가 확인되지 않은 실제 선수는 미확인으로 표시하고, 게임 진행용 나이만 임시로 사용합니다.</div>`}
 function showProfile(pid){let p=s.world.players[pid];if(!p)return;let chart=p.history.slice(-12).map(h=>avg(h.stats).toFixed(1));let body=`<h2>👤 ${esc(p.name)} <span class="pill">${p.pos}</span></h2><p>${esc(p.team)} · ${shownAge(p)} · 명성 ${p.fame.toFixed(0)} · ${p.real?'실제 닉네임':'게임 생성 선수'}</p><div class="stats">${ATTR.map((a,i)=>`<div class="stat">${a}<b>${p.stats[i].toFixed(2)}</b></div>`).join('')}</div><h3>최근 종합 능력치 추이</h3><p>${chart.length?chart.join(' → '):'기록 없음'}</p><h3>챔피언 숙련도</h3>${Object.entries(p.champ).map(([c,v])=>`<span class="pill">${esc(c)} ${v.toFixed(0)}</span>`).join('')}<p><button onclick="closeOverlay()">닫기</button></p>`;document.getElementById('overlayBody').innerHTML=body;document.getElementById('overlay').classList.remove('hide')}
@@ -1013,6 +1124,7 @@ function competitionIdentity(e){
  if(/^KeSPA Cup\b/i.test(n))return 'KeSPA Cup';
  if(/^Demacia Cup\b/i.test(n))return 'Demacia Cup';
  if(/^EWC\b/i.test(n))return 'EWC';
+ if(/^DGCI\b/i.test(n))return 'DGCI';
  if(/^First Stand\b/i.test(n))return 'First Stand';
  if(/^MSI(?:\b|\s)/i.test(n))return 'MSI';
  if(/^Worlds\b/i.test(n))return 'Worlds';
@@ -1200,7 +1312,7 @@ function eventDetail(e){let info='';
  if(e.note)info+=`<p class="notice">${esc(e.note)}</p>`;
  return `<h3>${esc(e.name)}</h3>${e.winner?`<p>🏆 우승: <b>${esc(e.winner)}</b></p>`:''}${info}${bracketDisplay(e)}`;
 }
-function calendar(){let monthNames={1:'LCK컵 그룹 대항전 · LEC Versus · 지역 개막 리그',2:'LCK컵 플레이인·PO · LPL Split 1 · 지역 개막 PO',3:'First Stand · 2개 그룹 더블 엘리미네이션 → 4강·결승',4:'LCK 1~2라운드 · 지역 정규시즌',5:'지역 PO · LPL Split 2 · 아시안게임 국가대표 발표(4년마다)',6:'LCK Road to MSI · MSI',7:'LCK 레전드/라이즈 (3~4R) · LPL Split 3 그룹 · EWC',8:'LCK 시즌 플레이인·PO · 지역 PO',9:'아시안게임 금메달 결정 (2026년부터 4년마다)',10:'Worlds 플레이인 · 스위스 · Demacia Cup',11:'Worlds 녹아웃',12:'KeSPA Cup'};return `<section class="card"><h2>🗓️ ${s.year} 시즌 캘린더</h2><div class="grid">${Array.from({length:12},(_,i)=>{let m=i+1;return `<div class="stat" style="border-color:${m===s.month?'#e7c36c':'#355173'}"><b>${m}월 ${m===s.month?'◀':''}</b><p>${monthNames[m]}</p><small>${m<s.month?'진행 완료':m===s.month?'진행 예정':'미래 일정'}</small></div>`}).join('')}</div><p class="muted">대회별 본선 방식은 구분해 시뮬레이션합니다. 월 단위 압축 일정과 일부 해외 대회·시드 배정·국가대표 선발은 실제 규정과 다를 수 있습니다.</p></section>`}
+function calendar(){let monthNames={1:'LCK컵 그룹 대항전 · LEC Versus · 지역 개막 리그',2:'LCK컵 플레이인·PO · LPL Split 1 · 지역 개막 PO',3:'First Stand · 2개 그룹 더블 엘리미네이션 → 4강·결승',4:'LCK 1~2라운드 · 지역 정규시즌',5:'지역 PO · LPL Split 2 · 아시안게임 국가대표 발표(4년마다)',6:'DGCI · LCK Road to MSI · MSI',7:'LCK 레전드/라이즈 (3~4R) · LPL Split 3 그룹 · EWC',8:'LCK 시즌 플레이인·PO · 지역 PO',9:'아시안게임 금메달 결정 (2026년부터 4년마다)',10:'Worlds 플레이인 · 스위스 · Demacia Cup',11:'Worlds 녹아웃',12:'KeSPA Cup'};return `<section class="card"><h2>🗓️ ${s.year} 시즌 캘린더</h2><div class="grid">${Array.from({length:12},(_,i)=>{let m=i+1;return `<div class="stat" style="border-color:${m===s.month?'#e7c36c':'#355173'}"><b>${m}월 ${m===s.month?'◀':''}</b><p>${monthNames[m]}</p><small>${m<s.month?'진행 완료':m===s.month?'진행 예정':'미래 일정'}</small></div>`}).join('')}</div><p class="muted">대회별 본선 방식은 구분해 시뮬레이션합니다. 월 단위 압축 일정과 일부 해외 대회·시드 배정·국가대표 선발은 실제 규정과 다를 수 있습니다.</p></section>`}
 function moveCategory(x){if(x.type==='은퇴')return '은퇴';if(x.type==='재계약')return '재계약';return '이적'}
 function moveRegion(x){
  const teams=s.world.teams;
