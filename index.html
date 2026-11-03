@@ -1546,7 +1546,8 @@ const TEAM_ACCENT={
 'FURIA':'#eeeeee','Fluxo W7M':'#b875cf','LOUD':'#b6d63d','Leviatán':'#75c9e8','LOS':'#ed913e','RED Canids':'#e65340','Vivo Keyd Stars':'#8d60c7','paiN Gaming':'#f2f2f2'};
 function applyTeamTheme(){
  let t=s?.world?.teams?.[me()?.team];let teamName=t?.name||me()?.team;let accent=TEAM_ACCENT[teamName];
- if(!accent&&Array.isArray(FARM_CLUBS)){for(const chain of FARM_CLUBS){if(chain.includes(teamName)||chain.includes(me()?.team)){const parent=s?.world?.teams?.[chain[chain.length-1]];accent=TEAM_ACCENT[parent?.name||chain[chain.length-1]];if(accent)break;}}}
+ if(!accent&&typeof FARM_CLUBS!=='undefined'&&Array.isArray(FARM_CLUBS)){for(const chain of FARM_CLUBS){if(chain.includes(teamName)||chain.includes(me()?.team)){const parent=s?.world?.teams?.[chain[chain.length-1]];accent=TEAM_ACCENT[parent?.name||chain[chain.length-1]];if(accent)break;}}}
+ if(!accent){const fallbackParent=({'T1 Rookies':'T1','Gen.G Rookies':'Gen.G','HLE Rookies':'Hanwha Life Esports','DK Rookies':'Dplus KIA','KT Rookies':'KT Rolster','DRX Rookies':'DRX','NS Rookies':'Nongshim RedForce','BRION Rookies':'BRION','FEARX Rookies':'BNK FEARX','SOOPers Rookies':'DN SOOPers','T1 Esports Academy':'T1','Gen.G Global Academy':'Gen.G','Hanwha Life Esports Challengers':'Hanwha Life Esports','Dplus KIA Challengers':'Dplus KIA','KT Rolster Challengers':'KT Rolster','DRX Challengers':'DRX','Nongshim Esports Academy':'Nongshim RedForce','BNK FEARX Youth':'BNK FEARX','DN SOOPers Challengers':'DN SOOPers','BRION Challengers':'BRION'});accent=TEAM_ACCENT[fallbackParent[teamName]];}
  accent=accent||'#e34b54';
  document.documentElement.style.setProperty('--accent',accent);
  document.documentElement.style.setProperty('--bg','#08090d');document.documentElement.style.setProperty('--card','#121318');document.documentElement.style.setProperty('--line',accent+'66');
