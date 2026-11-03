@@ -47,7 +47,19 @@
 .archive-comp.chosen{background:#284768;border-color:#d6b66c}.archive-inner{padding:13px 12px 17px;margin:-3px 0 13px;border:1px solid #3d5878;border-radius:0 0 12px 12px;background:#0e1c32}
 .archive-split-buttons{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid #3d5878}.archive-split-buttons button{min-height:44px;padding:10px 16px;border-radius:9px}.archive-split-buttons button.on{background:#446c98;color:#fff;border-color:#b9d5f1;font-weight:800}.archive-stage-buttons{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}.archive-stage-buttons button{min-height:42px;padding:10px 15px}.archive-stage-buttons button.on{background:#b78730;color:#111;border-color:#e4c07b;font-weight:800}.archive-stage-detail{min-width:0}
 @media(max-width:480px){.archive-comp{padding:12px 10px}.archive-inner{padding:10px 7px}.archive-stage-buttons button{flex:1 1 auto}}
-.transfer-timeline{border-left:2px solid #637e9d;margin:10px 0 10px 9px;padding-left:17px;max-height:620px;overflow-y:auto}.transfer-entry{position:relative;padding:11px 14px;margin:10px 0;border:1px solid #355173;border-radius:10px;background:#162d48;display:flex;flex-direction:column;gap:3px}.transfer-entry:before{content:'';position:absolute;left:-24px;top:18px;width:10px;height:10px;border-radius:100%;background:#e2c074}.transfer-entry strong{font-size:15px}.transfer-entry small{color:#b1c6db}nav button{min-height:42px} .round-switches{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}.round-switches .on{background:var(--accent);color:#08090d;border-color:var(--accent)}.transfer-entry{padding:10px;border-left:3px solid var(--accent);margin:8px 0;background:#17191f;border-radius:7px}@media(max-width:600px){main{padding:10px}header{padding:10px}nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}nav button{width:100%;font-size:13px}.card{padding:12px}table{font-size:12px}th,td{padding:7px 4px}}</style></head><body><header><strong>🏆 아카데미에서 월즈까지 <small>V5 · 대회별 기록 메뉴 패치</small></strong><span id="topbar"></span></header><main><div id="app"><section class="card hero"><h1>🏆 아카데미에서 월즈까지 V5</h1><p>2026년 리그별 전력 밸런스 적용 버전입니다.</p><p class="notice">브라우저에서 JavaScript를 실행하면 전체 리그와 팀 선택창이 표시됩니다.</p><button type="button" class="primary" onclick="startOptions()">팀 선택 화면 열기</button></section></div></main><div id="overlay" class="overlay hide"><div class="card" id="overlayBody"></div></div>
+.transfer-timeline{border-left:2px solid #637e9d;margin:10px 0 10px 9px;padding-left:17px;max-height:620px;overflow-y:auto}.transfer-entry{position:relative;padding:11px 14px;margin:10px 0;border:1px solid #355173;border-radius:10px;background:#162d48;display:flex;flex-direction:column;gap:3px}.transfer-entry:before{content:'';position:absolute;left:-24px;top:18px;width:10px;height:10px;border-radius:100%;background:#e2c074}.transfer-entry strong{font-size:15px}.transfer-entry small{color:#b1c6db}nav button{min-height:42px} .round-switches{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}.round-switches .on{background:var(--accent);color:#08090d;border-color:var(--accent)}.transfer-entry{padding:10px;border-left:3px solid var(--accent);margin:8px 0;background:#17191f;border-radius:7px}@media(max-width:600px){main{padding:10px}header{padding:10px}nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}nav button{width:100%;font-size:13px}.card{padding:12px}table{font-size:12px}th,td{padding:7px 4px}}
+:root{--card:#151316;--line:color-mix(in srgb,var(--accent) 42%,#252329);--muted:#b9b7bd}
+body{background:radial-gradient(ellipse at 12% 0%,color-mix(in srgb,var(--accent) 22%,transparent),transparent 48%),#08090d!important}
+header{background:color-mix(in srgb,var(--accent) 17%,#09090c)!important;border-bottom-color:color-mix(in srgb,var(--accent) 55%,#242329)!important}
+.card,.hero,.stat,.comment,.match,.bracket-match,.bracket-column,.group-table,.bracket-zone,.archive-inner,.archive-comp,.transfer-entry{background:color-mix(in srgb,var(--accent) 12%,#111115)!important;border-color:color-mix(in srgb,var(--accent) 35%,#29272d)!important}
+.hero{background:linear-gradient(115deg,color-mix(in srgb,var(--accent) 25%,#111115),#111115)!important}
+button,select,input{background:color-mix(in srgb,var(--accent) 18%,#17171b);border-color:color-mix(in srgb,var(--accent) 48%,#343138)}
+button.active,.round-switches button.on,.archive-stage-buttons button.on{background:var(--accent)!important;color:#09090b!important;border-color:var(--accent)!important}
+.primary{background:var(--accent)!important;color:#09090b!important;border-color:var(--accent)!important}
+.pill,.tag,.notice{background:color-mix(in srgb,var(--accent) 16%,#151519);border-color:color-mix(in srgb,var(--accent) 35%,#302d33)}
+.archive-year,h2,th{color:var(--accent)}
+.bracket-column,.bracket-zone,.group-table{background:color-mix(in srgb,var(--accent) 9%,#101014)!important}
+</style></head><body><header><strong>🏆 아카데미에서 월즈까지 <small>V5 · 대회별 기록 메뉴 패치</small></strong><span id="topbar"></span></header><main><div id="app"><section class="card hero"><h1>🏆 아카데미에서 월즈까지 V5</h1><p>2026년 리그별 전력 밸런스 적용 버전입니다.</p><p class="notice">브라우저에서 JavaScript를 실행하면 전체 리그와 팀 선택창이 표시됩니다.</p><button type="button" class="primary" onclick="startOptions()">팀 선택 화면 열기</button></section></div></main><div id="overlay" class="overlay hide"><div class="card" id="overlayBody"></div></div>
 <script>
 window.addEventListener('error',function(e){var x=document.getElementById('launchHelp');if(x)x.textContent='실행 오류: '+e.message;});
 'use strict';
@@ -299,6 +311,7 @@ function news(t){s.news.unshift({year:s.year,month:s.month,text:t});s.news=s.new
 function activePlayers(t){return (t.players||[]).map(id=>s.world.players[id]).filter(p=>p&&!p.retired)}
 function logMove(type,p,from,to,extra=''){
  if(!s.transferLog)s.transferLog=[];
+ const duplicate=s.transferLog.some(x=>x.year===s.year&&x.type===type&&x.player===(p?.name||'')&&x.from===(from||'')&&x.to===(to||'')&&x.extra===(extra||''));if(duplicate)return;
  s.transferLog.unshift({year:s.year,month:s.month,sequence:(s.transferSequence=(s.transferSequence||0)+1),type,player:p?.name||'',position:p?.pos||'',from:from||'',to:to||'',extra});
  s.transferLog=s.transferLog.slice(0,400);
 }
@@ -329,7 +342,7 @@ function academyRookie(t,pos,reason){
  if(!t||t.league!=='ACADEMY')return null;
  let age=Math.floor(r(16,19));
  let p=makePlayer(genRookieName(),pos,'ACADEMY',t.id,false,age);
- p.placeholder=true;p.rookie=true;p.generated=true;p.academyOrigin=true;p.academyDebutYear=s.year;p.contractYears=Math.round(r(1,2));p.contractUntil=s.year+p.contractYears-1;p.salaryAI=Math.max(salaryFloorForLeague('ACADEMY'),offerSalary(t,p));
+ p.placeholder=true;p.rookie=true;p.generated=true;p.academyOrigin=true;p.academyDebutYear=s.year;p.contractYears=Math.round(r(1,2));p.contractUntil=s.year+p.contractYears;p.salaryAI=Math.max(salaryFloorForLeague('ACADEMY'),offerSalary(t,p));
  let target=clamp(53+r(-7,7),44,63),diff=target-avg(p.stats);
  p.stats=p.stats.map(v=>rnd(clamp(v+diff,30,96)));
  p.fame=Math.round(r(2,13));s.world.players[p.id]=p;t.players.push(p.id);
@@ -352,7 +365,7 @@ function fillVacancy(t,pos,reason){
   pool=pool.filter(p=>!p.generated||p.academyDebutYear<s.year);
   pool.sort((a,b)=>avg(b.stats)-avg(a.stats));
   let candidate=pool[0];
-  if(candidate){t.players.push(candidate.id);candidate.team=t.id;candidate.league=t.league;candidate.freeAgent=false;candidate.unattachedYears=0;candidate.contractYears=Math.round(r(1,2));candidate.contractUntil=s.year+candidate.contractYears-1;candidate.salaryAI=Math.max(salaryFloorForLeague(t.league),offerSalary(t,candidate));logMove('FA 영입',candidate,'FA',t.name,reason||'공석 충원');return candidate}
+  if(candidate){t.players.push(candidate.id);candidate.team=t.id;candidate.league=t.league;candidate.freeAgent=false;candidate.unattachedYears=0;candidate.contractYears=Math.round(r(1,2));candidate.contractUntil=s.year+candidate.contractYears;candidate.salaryAI=Math.max(salaryFloorForLeague(t.league),offerSalary(t,candidate));logMove('FA 영입',candidate,'FA',t.name,reason||'공석 충원');return candidate}
   // Prefer linked development squads; overseas clubs can recruit from the academy league.
   let chain=FARM_CLUBS.find(c=>c.includes(t.id));
   let lowerNames=chain?chain.slice(0,chain.indexOf(t.id)).reverse():[];
@@ -419,7 +432,7 @@ function transferPlayer(p,to,why){
  from.players=from.players.filter(id=>id!==p.id);
  to.players.push(p.id);p.team=to.id;p.league=to.league;p.freeAgent=false;p.unattachedYears=0;
  const fee=aiTransferFee(p);
- p.contractYears=Math.round(r(1,2));p.contractUntil=s.year+p.contractYears-1;p.salaryAI=Math.max(salaryFloorForLeague(to.league),offerSalary(to,p));
+ p.contractYears=Math.round(r(1,2));p.contractUntil=s.year+p.contractYears;p.salaryAI=Math.max(salaryFloorForLeague(to.league),offerSalary(to,p));
  logMove('이적',p,from.name,to.name,`${why||'계약 체결'} · 이적료 ${fee.toLocaleString()}만 원 · ${p.contractYears}년 계약`);
  normalizeRoster(from);normalizeRoster(to);
  return true;
@@ -1107,6 +1120,7 @@ function offerSuitability(t,p){
 }
 function weightedPick(items,weight){let total=items.reduce((sum,x)=>sum+Math.max(0,weight(x)),0);if(!total)return pick(items);let roll=Math.random()*total;for(let x of items){roll-=Math.max(0,weight(x));if(roll<=0)return x}return items[items.length-1]}
 function createOffers(){
+ if(s.offersGeneratedForYear===s.year&&s.contractPending&&Array.isArray(s.offers))return;
  let p=me(),current=teamOf(p);
  let candidates=Object.values(s.world.teams).filter(t=>t.id!==current.id)
  .filter(t=>eligibleForTeam(p,t)&&recruitFit(t,p)>=.055&&activePlayers(t).some(x=>x.pos===p.pos&&!x.player))
@@ -1119,7 +1133,7 @@ function createOffers(){
   options.push({team:chosen.t.id,salary:offerSalary(chosen.t,p),years:Math.round(r(1,2)),strength:rnd(power(chosen.t)),budget:teamMarket(chosen.t).budget});
   candidates=candidates.filter(x=>x!==chosen);
  }
- s.offers=options;s.contractPending=true;
+ s.offers=options;s.contractPending=true;s.offersGeneratedForYear=s.year;
  news(options.length?'📩 팀 재정과 선수 가치가 반영된 이적 제안이 도착했습니다':'📩 이번 스토브리그에서는 타 구단의 영입 제안이 없습니다');
 }
 function acceptOffer(i){
@@ -1463,11 +1477,13 @@ function processAIContractExpiries(){
  for(const p of Object.values(s.world.players)){
   if(p.player||p.retired||p.team==='FA')continue;
   const t=s.world.teams[p.team];if(!t)continue;
-  if(!p.contractUntil){p.contractYears=Math.round(r(1,2));p.contractUntil=s.year+p.contractYears-1;p.salaryAI=Math.max(salaryFloorForLeague(p.league),offerSalary(t,p));continue}
+  if(!p.contractUntil){p.contractYears=Math.round(r(1,2));p.contractUntil=s.year+p.contractYears;p.salaryAI=Math.max(salaryFloorForLeague(p.league),offerSalary(t,p));continue}
   if(p.contractUntil>s.year)continue;
+  const expiryKey=String(p.contractUntil);if(p.lastResolvedContractUntil===expiryKey)continue;
+  p.lastResolvedContractUntil=expiryKey;
   const floor=salaryFloorForLeague(t.league),current=Math.max(floor,Number(p.salaryAI)||offerSalary(t,p));
   const renewal=Math.random()<clamp(.72+(avg(p.stats)-65)*.004-(p.age>29?.12:0),.25,.9);
-  if(renewal){p.contractYears=Math.round(r(1,2));p.contractUntil=s.year+p.contractYears-1;p.salaryAI=Math.max(floor,Math.round(current*r(.96,1.14)/10)*10);logMove('AI 재계약',p,t.name,t.name,`연봉 ${p.salaryAI}만 원 · ${p.contractYears}년`)}
+  if(renewal){p.contractYears=Math.round(r(1,2));p.contractUntil=s.year+p.contractYears;p.salaryAI=Math.max(floor,Math.round(current*r(.96,1.14)/10)*10);logMove('AI 재계약',p,t.name,t.name,`연봉 ${p.salaryAI}만 원 · ${p.contractYears}년`)}
   else {releaseFromTeam(p,'계약 만료 · FA');logMove('계약 종료',p,t.name,'FA','계약 만료 후 자유계약선수');news(`📄 ${p.name}, ${t.name}과 계약 만료 · FA 시장 진입`)}
  }
 }
@@ -1512,6 +1528,7 @@ function applyRequestedEconomyPatch(){
  if(typeof LEAGUE_MARKET!=='undefined'){for(const [lg,rule] of Object.entries(LEAGUE_MARKET))rule.floor=salaryFloorForLeague(lg)}
  if(!s)return;
  if(!s.priceDoublePatch){for(const it of ITEMS)it[2]*=2;for(const it of (s.inventory||[]))it[2]*=2;s.priceDoublePatch=true;}
+ if(!s.contractYearSemanticsV2){for(const pl of Object.values(s.world?.players||{})){if(!pl.retired&&pl.team!=='FA'&&Number.isFinite(Number(pl.contractUntil)))pl.contractUntil=Number(pl.contractUntil)+1;}s.contractYearSemanticsV2=true;}
  const p=s.world?.players?.[s.player];if(p){const floor=salaryFloorForLeague(p.league);s.salary=Math.max(Number(s.salary)||0,floor)}
  for(const t of Object.values(s.world?.teams||{}))for(const pl of activePlayers(t)){
    if(pl.player)continue;
@@ -1528,7 +1545,9 @@ const TEAM_ACCENT={
 'CTBC Flying Oyster':'#d4b45b','Relove Deep Cross Gaming':'#e9f2ff','Deep Cross Gaming':'#e9f2ff','DetonatioN FocusMe':'#4b91db','Fukuoka SoftBank HAWKS':'#f5f5f5','GAM Esports':'#e8d34a','Ground Zero Gaming':'#b7d84c','MVK Esports':'#e88a42','Team Secret Whales':'#f3f3f3',
 'FURIA':'#eeeeee','Fluxo W7M':'#b875cf','LOUD':'#b6d63d','Leviatán':'#75c9e8','LOS':'#ed913e','RED Canids':'#e65340','Vivo Keyd Stars':'#8d60c7','paiN Gaming':'#f2f2f2'};
 function applyTeamTheme(){
- let t=s?.world?.teams?.[me()?.team];let accent=TEAM_ACCENT[t?.name]||'#e34b54';
+ let t=s?.world?.teams?.[me()?.team];let teamName=t?.name||me()?.team;let accent=TEAM_ACCENT[teamName];
+ if(!accent&&Array.isArray(FARM_CLUBS)){for(const chain of FARM_CLUBS){if(chain.includes(teamName)||chain.includes(me()?.team)){const parent=s?.world?.teams?.[chain[chain.length-1]];accent=TEAM_ACCENT[parent?.name||chain[chain.length-1]];if(accent)break;}}}
+ accent=accent||'#e34b54';
  document.documentElement.style.setProperty('--accent',accent);
  document.documentElement.style.setProperty('--bg','#08090d');document.documentElement.style.setProperty('--card','#121318');document.documentElement.style.setProperty('--line',accent+'66');
  document.body.style.background='radial-gradient(ellipse at top right, '+accent+'22, transparent 48%), #08090d';
@@ -1547,8 +1566,9 @@ function transfer(){
  const logs=s.transferLog||[];window.marketLeagueTab??='해외';
  const groups={'해외':['LPL','LEC','LCS','LCP','CBLOL'],'LCK':['LCK'],'CL':['LCK CL'],'아카데미':['ACADEMY']};
  const groupOf=(entry)=>{let team=s.world.teams[entry.to]||s.world.teams[entry.from];let lg=team?.league||'';return lg==='LCK'?'LCK':lg==='LCK CL'?'CL':lg==='ACADEMY'?'아카데미':'해외'};
- const rows=logs.filter(x=>groupOf(x)===window.marketLeagueTab);
- return `<section class="card"><h2>🔄 이적 시장</h2><p>현재 소속 ${esc(me().team)} · 연봉 ${moneyLabel(s.salary)} · 잔여 계약 ${s.contract}년</p><div class="round-switches">${Object.keys(groups).map(g=>`<button class="${window.marketLeagueTab===g?'on':''}" onclick="window.marketLeagueTab='${g}';render()">${g}</button>`).join('')}</div>${s.contractPending?'<div class="notice">계약 만료: 제안 확인 또는 현 소속팀 재계약이 필요합니다.</div>':''}${s.offers?.length?s.offers.map((o,i)=>`<div class="stat"><b>${esc(o.team)}</b><p>연봉 ${moneyLabel(o.salary)} · ${o.years}년 · ${esc(s.world.teams[o.team]?.league||'')}</p><button onclick="beginPlayerNegotiation(${i})">계약 협상</button></div>`).join(''):'<p class="muted">현재 진행 중인 제안이 없습니다.</p>'}${s.contractPending?'<button onclick="stay()">현 소속팀 재계약 협상</button>':''}<h3>이적 기록</h3>${rows.length?rows.slice(0,150).map(x=>`<div class="transfer-entry"><small>${x.year}.${x.month} · ${esc(x.type)}</small><strong>${esc(x.player||x.extra||'구단 소식')}</strong><div>${esc(x.from)} ${x.to?'→ '+esc(x.to):''}</div></div>`).join(''):'<p class="muted">해당 시장 기록 없음</p>'}</section>`
+ const years=[...new Set(logs.map(x=>Number(x.year)).filter(Number.isFinite))].sort((a,b)=>b-a);window.marketYear??='all';
+ const rows=logs.filter(x=>groupOf(x)===window.marketLeagueTab&&(window.marketYear==='all'||Number(x.year)===Number(window.marketYear)));
+ return `<section class="card"><h2>🔄 이적 시장</h2><p>현재 소속 ${esc(me().team)} · 연봉 ${moneyLabel(s.salary)} · 잔여 계약 ${s.contract}년</p><div class="round-switches">${Object.keys(groups).map(g=>`<button class="${window.marketLeagueTab===g?'on':''}" onclick="window.marketLeagueTab='${g}';render()">${g}</button>`).join('')}</div><div class="row"><label for="marketYear">이적 기록 연도</label><select id="marketYear" onchange="window.marketYear=this.value;render()"><option value="all" ${window.marketYear==='all'?'selected':''}>전체 연도</option>${years.map(y=>`<option value="${y}" ${Number(window.marketYear)===y?'selected':''}>${y}년</option>`).join('')}</select><span class="muted">총 ${rows.length}건</span></div>${s.contractPending?'<div class="notice">계약 만료: 제안 확인 또는 현 소속팀 재계약이 필요합니다.</div>':''}${s.offers?.length?s.offers.map((o,i)=>`<div class="stat"><b>${esc(o.team)}</b><p>연봉 ${moneyLabel(o.salary)} · ${o.years}년 · ${esc(s.world.teams[o.team]?.league||'')}</p><button onclick="beginPlayerNegotiation(${i})">계약 협상</button></div>`).join(''):'<p class="muted">현재 진행 중인 제안이 없습니다.</p>'}${s.contractPending?'<button onclick="stay()">현 소속팀 재계약 협상</button>':''}<h3>이적 기록</h3>${rows.length?rows.slice(0,250).map(x=>`<div class="transfer-entry"><small>${x.year}.${x.month} · ${esc(x.type)}</small><strong>${esc(x.player||x.extra||'구단 소식')}</strong><div>${esc(x.from)} ${x.to?'→ '+esc(x.to):''}</div></div>`).join(''):'<p class="muted">해당 연도 기록 없음</p>'}</section>`
 }
 const _renderOriginal=render;
 function render(){applyRequestedEconomyPatch();applyTeamTheme();header();if(!s){startOptions();return}if(s.retired){document.getElementById('app').innerHTML=careerEnding();return}let pages={home,training,roster,events,calendar,transfer,shop,loadout,records,news:newsTab,settings};document.getElementById('app').innerHTML=menu()+(pages[tab]||home)()}
